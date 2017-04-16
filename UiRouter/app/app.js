@@ -17,36 +17,18 @@ define([
 		'ui.router'
 	]).
 	config(['$routeProvider','$stateProvider', '$urlRouterProvider', '$locationProvider', function($routeProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
-        /*$routeProvider
-
-			.when('/view1', {
-            	templateUrl: 'view1/view1.html',
-            	controller: 'View1Ctrl'
-        	})
-
-        	.when('/view2', {
-            	templateUrl: 'view2/view2.html',
-            	controller: 'View2Ctrl'
-        	})
-
-			.when('/teacher', {
-                templateUrl: 'teacher/teacher-home.html',
-                controller: 'TeacherHomeCtrl'
-			})
-
-		$routeProvider.otherwise({redirectTo: '/view1'});*/
-
-        $locationProvider.html5Mode({
-			enabled:true,
-            requireBase: false
-		});
+        
 
         $stateProvider
 			.state('home', {
 				url: '/view1',
-                templateUrl: 'view1/view1.html',
-                controller: 'View1Ctrl'
+                templateUrl: 'view1/view1.html'
             })
+			.state('home2', {
+				url: '/view2',
+                templateUrl: 'view2/view2.html'
+            })
+			
 
 		$urlRouterProvider.otherwise('home');
 	}]);
