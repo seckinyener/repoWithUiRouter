@@ -34,21 +34,33 @@ define([
                 controller: 'TeacherHomeCtrl'
 			})
 
-		$routeProvider.otherwise({redirectTo: '/view1'});*/
-
-        $locationProvider.html5Mode({
+		$routeProvider.otherwise({redirectTo: '/view1'});
+*/
+        /*$locationProvider.html5Mode({
 			enabled:true,
             requireBase: false
-		});
+		});*/
 
         $stateProvider
 			.state('home', {
-				url: '/view1',
+				url: '/home',
                 templateUrl: 'view1/view1.html',
                 controller: 'View1Ctrl'
             })
 
+			.state('teacher', {
+				url:'/teacher',
+                templateUrl: 'teacher/teacher-home.html',
+                controller: 'TeacherHomeCtrl'
+			})
+
 		$urlRouterProvider.otherwise('home');
-	}]);
+
+	}])
+        .controller('HomeCtrl', function ($scope, $location) {
+            //this is home controller
+        	$scope.test = true;
+        });
+
 });
 

@@ -8,6 +8,6 @@ define([
 ], function(angular) {
     angular.module('myApp.teacherHome', ['ngRoute'])
         .controller('TeacherHomeCtrl', [function() {
-
+            console.log("girdiiiii");
         }]);
 });
