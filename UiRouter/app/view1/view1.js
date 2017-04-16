@@ -1,0 +1,11 @@
+'use strict';
+define([
+	'angular',
+	'angularRoute'
+], function(angular) {
+	angular.module('myApp.view1', ['ngRoute'])
+	.controller('View1Ctrl', [function() {
+		
+	}]);
+});
+
