@@ -36,3 +36,33 @@ body{
 [ng-cloak] {
     display: none;
 }
+
+.dashboardStyle{
+  position: relative;
+  height: inherit;
+  background: #fff;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  width : 50%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.searchInput{
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.searchField{
+  margin: 20px;
+}
+
+.detailsPageDashboard{
+  background-color: #fff;
+  height: 500px;
+  height: 750px;
+}

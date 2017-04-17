@@ -1,15 +1,90 @@
-<h2>Welcome to teacher home page.</h2>
-<div>
+<div ng-controller="teacherHomeCtrl">
     <div class="col-md-6">
-        <section style="background-color: #fff;">
+        <section style="background-color: #fff; height: 350px;">
             <h2 style="font-size: 24px;">What would you like to do?</h2>
-            <button data-toggle="tooltip" title="Seckin" style="margin-top: 10px;" class="btn btn-primary">Create a Project</button>
+            <button data-toggle="tooltip" title="Seckin" style="margin-top: 10px;" ng-click="createAProject()" class="btn btn-primary">Create a Project</button>
         </section>
     </div>
 
     <div class="col-md-6">
-        <section style="background-color: #fff;">
+        <section style="background-color: #fff; height: 350px;">
             <h2 style="font-size: 24px;">My Open Projects</h2>
+            <div style="margin: 20px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Student Name</th>
+                            <th>Project Name</th>
+                            <th>Course</th>
+                            <th>Software Tools</th>
+                            <th>Expire Date</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-model="resultList">
+                        <tr ng-repeat = "result in resultList">
+                            <td>
+                                <input type="checkbox">
+                            </td>
+                            <td>{{result.studentName}}</td>
+                            <td>{{result.projectName}}</td>
+                            <td>{{result.courseName}}</td>
+                            <td>{{result.softwareTools}}</td>
+                            <td>{{result.expireDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button style="float: right; margin: 10px;" class="btn btn-primary" ng-click="showDetails()">Investigate</button>
         </section>
+    </div>
+    <div class="col-md-12" style="margin-top : 20px;">
+        <section style="background-color: #fff; height: 250px;">
+            <h2 style="margin-bottom: 20px;">Search Projects</h2>
+            <div>
+                <div class="col-md-3 col-xs-12 col-md-offset-1">
+                    <label style="color: #999;">Search By Project Name</label>
+                </div>
+                <div class="col-md-5 col-xs-7">
+                    <input class="searchInput" type="text">
+                </div>
+            </div>
+            <div>
+                <div class="col-md-3 col-xs-12 col-md-offset-1">
+                    <label style="color: #999;">Search By Project Id</label>
+                </div>
+                <div class="col-md-5 col-xs-7">
+                    <input class="searchInput" type="text">
+                </div>
+            </div>
+            <div>
+                <div class="col-md-3 col-xs-12 col-md-offset-1">
+                    <label style="color: #999;">Search By Student Name</label>
+                </div>
+                <div class="col-md-5 col-xs-7">
+                    <input class="searchInput" type="text">
+                </div>
+            </div>
+            <button style="float: right; margin: 10px;" class="btn btn-primary">Search</button>
+        </section>
+    </div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
     </div>
 </div>

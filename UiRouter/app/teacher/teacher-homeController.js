@@ -5,9 +5,19 @@ define([],function(){
     'use strict';
     var teacherPageController = function($scope){
         $scope.test = true;
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-        });
+
+        $scope.resultList = [{
+            "studentName" : "Mike Charlton",
+            "projectName" : "Test",
+            "courseName" : "Se",
+            "softwareTools" : "Java,Angular,SpringBoot"
+            },
+            {
+                "studentName" : "Ryan Gosling",
+                "projectName" : "Deneme",
+                "courseName" : "Se",
+                "softwareTools" : ".Net,Javascript"
+            }];
     }
     teacherPageController.$inject = ['$scope'];
     return teacherPageController;
