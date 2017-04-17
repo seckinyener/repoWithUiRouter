@@ -15,9 +15,10 @@ define([
     'angularRoute'
 ], function(angular) {
     angular.module('myApp.teacherHome', ['ngRoute'])
-        .controller('teacherHomeCtrl', ['$scope', '$http','$state', '$stateParams', function ($scope,$http,$state, $stateParams) {
+        .controller('teacherHomeCtrl', ['$scope', '$http', '$state','$timeout', function ($scope, $http, $state, $timeout) {
             //$state.go("home2");
             $scope.test = true;
+            $scope.isCreatedSuccessfully = false;
 
             $scope.resultList = [{
                 "studentName" : "Mike Charlton",
@@ -49,6 +50,17 @@ define([
             $scope.showDetails = function(){
                 $state.go("details");
             }
+
+            $scope.createProjectTemplate = function(){
+                $scope.isCreatedSuccessfully = true;
+                $scope.alertMessage = "Project created successfully";
+                $timeout( function(){
+                    $scope.isCreatedSuccessfully = false;
+                    $('#myModal').modal('hide');
+                    }, 3000);
+            }
+
+            $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);
 });
 
