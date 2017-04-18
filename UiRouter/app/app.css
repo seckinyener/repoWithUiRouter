@@ -63,10 +63,24 @@ td, th {
 
 .detailsPageDashboard{
   background-color: #fff;
-  height: 500px;
-  height: 750px;
+  height: 450px;
+  border-style: groove;
+  border-radius: 10px;
 }
 
 .projectLabel{
   color: #999;
+}
+
+.glyphicon-pencil:hover{
+  text-decoration: underline;
+  cursor:pointer;
+}
+
+.buttonGroup{
+  margin : 20px;
+}
+
+.headerText{
+  margin-left: 25px;
 }

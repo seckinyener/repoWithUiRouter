@@ -16,9 +16,11 @@ define([
 ], function(angular) {
     angular.module('myApp.teacherHome', ['ngRoute'])
         .controller('teacherHomeCtrl', ['$scope', '$http', '$state','$timeout', function ($scope, $http, $state, $timeout) {
-            //$state.go("home2");
-            $scope.test = true;
+
+           $scope.test = true;
             $scope.isCreatedSuccessfully = false;
+            $scope.myOpenProjectList = [];
+            $scope.projectForm = {};
 
             $scope.resultList = [{
                 "studentName" : "Mike Charlton",
@@ -44,6 +46,7 @@ define([
 
             $scope.createAProject = function(){
                 $scope.test = true;
+                $scope.projectForm = {};
                 $('#myModal').modal('show');
             }
 
@@ -54,6 +57,24 @@ define([
             $scope.createProjectTemplate = function(){
                 $scope.isCreatedSuccessfully = true;
                 $scope.alertMessage = "Project created successfully";
+                var project = {};
+                project.projectName = $scope.projectForm.projectName;
+                project.courseName ="SoftwareEngineering";
+                project.softwareTools = $scope.projectForm.usedTools;
+                project.expireDate = $scope.projectForm.projectExpireDate;
+                $scope.myOpenProjectList.push(project);
+
+                var table = document.getElementById("openProjects");
+                var row = table.insertRow(1);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                cell1.innerHTML = $scope.projectForm.projectName;
+                cell2.innerHTML = project.courseName;
+                cell3.innerHTML = $scope.projectForm.usedTools;
+                cell4.innerHTML = $scope.projectForm.projectExpireDate;
+
                 $timeout( function(){
                     $scope.isCreatedSuccessfully = false;
                     $('#myModal').modal('hide');

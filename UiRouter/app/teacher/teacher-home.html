@@ -1,14 +1,34 @@
 <div ng-controller="teacherHomeCtrl">
     <div class="col-md-6">
-        <section style="background-color: #fff; height: 350px;">
-            <h2 style="font-size: 24px;">What would you like to do?</h2>
-            <button data-toggle="tooltip" title="Seckin" style="margin-top: 10px;" ng-click="createAProject()" class="btn btn-primary">Create a Project</button>
+        <section style="background-color: #fff; height: 350px; border:groove; border-radius:10px; margin-top:20px;">
+            <h2 class="headerText">My Open Projects</h2>
+            <table style="margin: 30px auto;" id="openProjects">
+                <thead>
+                <tr>
+                    <th>Project Name</th>
+                    <th>Course</th>
+                    <th>Software Tools</th>
+                    <th>Expire Date</th>
+                </tr>
+                </thead>
+                <tbody ng-model="myOpenProjectList">
+                <tr ng-repeat = "result in myOpenProjectList">
+                    <td>{{result.projectName}}</td>
+                    <td>{{result.courseName}}</td>
+                    <td>{{result.softwareTools}}</td>
+                    <td>{{result.expireDate}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-md-12">
+                <button data-toggle="tooltip" title="Seckin" style="margin-top: 10px; float:right;" ng-click="createAProject()" class="btn btn-primary">Create a Project</button>
+            </div>
         </section>
     </div>
 
     <div class="col-md-6">
-        <section style="background-color: #fff; height: 350px;">
-            <h2 style="font-size: 24px;">My Open Projects</h2>
+        <section style="background-color: #fff; height: 350px; border:groove; border-radius:10px; margin-top:20px;">
+            <h2 class="headerText">Student Projects</h2>
             <div style="margin: 20px;">
                 <table>
                     <thead>
@@ -39,8 +59,8 @@
         </section>
     </div>
     <div class="col-md-12" style="margin-top : 20px;">
-        <section style="background-color: #fff; height: 250px;">
-            <h2 style="margin-bottom: 20px;">Search Projects</h2>
+        <section style="background-color: #fff; height: 250px; border:groove; border-radius:10px;">
+            <h2 class="headerText" style="margin-bottom: 20px;">Search Projects</h2>
             <div>
                 <div class="col-md-3 col-xs-12 col-md-offset-1">
                     <label class="projectLabel">Search By Project Name</label>
@@ -78,45 +98,50 @@
                 <h4 class="modal-title">Create Project Template</h4>
             </div>
             <div class="alert alert-success" ng-if="isCreatedSuccessfully">
-                <button type = "button" class = "close" data-dismiss = "alert" aria-hidden = "true">
-                    &times;
-                </button>
-                <strong>{{alertMessage}}</strong>
+                <center>
+                    <strong>{{alertMessage}}</strong>
+                </center>
             </div>
-            <div class="modal-body" style="height: 380px;">
+            <div class="modal-body" style="height: 420px;">
                 <div class="col-md-4">
                     <label class="projectLabel">Project Name</label>
                 </div>
                 <div class="col-md-6">
-                    <input class="searchInput" type="text">
+                    <input class="searchInput" ng-model="projectForm.projectName" type="text">
                 </div>
                 <div class="col-md-4">
                     <label class="projectLabel">Project Purpose</label>
                 </div>
                 <div class="col-md-6">
-                    <textarea class="searchInput" rows="2" cols="50">
+                    <textarea class="searchInput" ng-model="projectForm.projectPurpose" rows="2" cols="50">
                     </textarea>
                 </div>
                 <div class="col-md-4">
                     <label class="projectLabel">Project Description</label>
                 </div>
                 <div class="col-md-6">
-                    <textarea class="searchInput" rows="2" cols="50">
+                    <textarea class="searchInput" ng-model="projectForm.projectDescription" rows="2" cols="50">
                     </textarea>
                 </div>
                 <div class="col-md-4">
                     <label class="projectLabel">Project Details</label>
                 </div>
                 <div class="col-md-6">
-                    <textarea class="searchInput" rows="3" cols="50">
+                    <textarea class="searchInput" ng-model="projectForm.projectDetails" rows="3" cols="50">
                     </textarea>
                 </div>
                 <div class="col-md-4">
-                    <label class="projectLabel">Project Rules</label>
+                    <label class="projectLabel">Used Tools</label>
                 </div>
                 <div class="col-md-6">
-                    <textarea class="searchInput" rows="3" cols="50">
+                    <textarea class="searchInput" ng-model="projectForm.usedTools" rows="3" cols="50">
                     </textarea>
+                </div>
+                <div class="col-md-4">
+                    <label class="projectLabel">Expire Date</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="searchInput" ng-model="projectForm.projectExpireDate" type="text">
                 </div>
             </div>
             <div class="modal-footer">
