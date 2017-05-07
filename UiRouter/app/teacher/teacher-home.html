@@ -2,24 +2,7 @@
     <div class="col-md-6">
         <section style="background-color: #fff; height: 350px; border:groove; border-radius:10px; margin-top:20px;">
             <h2 class="headerText">My Open Projects</h2>
-            <table style="margin: 30px auto;" id="openProjects">
-                <thead>
-                <tr>
-                    <th>Project Name</th>
-                    <th>Course</th>
-                    <th>Software Tools</th>
-                    <th>Expire Date</th>
-                </tr>
-                </thead>
-                <tbody ng-model="myOpenProjectList">
-                <tr ng-repeat = "result in myOpenProjectList">
-                    <td>{{result.projectName}}</td>
-                    <td>{{result.courseName}}</td>
-                    <td>{{result.softwareTools}}</td>
-                    <td>{{result.expireDate}}</td>
-                </tr>
-                </tbody>
-            </table>
+            <div style="margin-left: 20px;" ui-grid="gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns ui-grid-move-columns></div>
             <div class="col-md-12">
                 <button data-toggle="tooltip" title="Seckin" style="margin-top: 10px; float:right;" ng-click="createAProject()" class="btn btn-primary">Create a Project</button>
             </div>
@@ -141,7 +124,11 @@
                     <label class="projectLabel">Expire Date</label>
                 </div>
                 <div class="col-md-6">
-                    <input class="searchInput" ng-model="projectForm.projectExpireDate" type="text">
+                    <datepicker>
+                        <input ng-model="date" type="text"/>
+                    </datepicker>
+                    <!--<input class="searchInput" ng-model="projectForm.projectExpireDate" type="text">
+                    -->
                 </div>
             </div>
             <div class="modal-footer">

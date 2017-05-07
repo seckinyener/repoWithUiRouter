@@ -14,7 +14,7 @@ define([
     'angular',
     'angularRoute'
 ], function(angular) {
-    angular.module('myApp.teacherHome', ['ngRoute'])
+    angular.module('myApp.teacherHome', ['ngRoute', 'ui.grid'])
         .controller('teacherHomeCtrl', ['$scope', '$http', '$state','$timeout', function ($scope, $http, $state, $timeout) {
 
            $scope.test = true;
@@ -32,7 +32,7 @@ define([
                 {
                     "studentName" : "Ryan Gosling",
                     "projectName" : "Deneme",
-                    "courseName" : "Se",
+                    "courseName" : "Seccccc",
                     "softwareTools" : ".Net,Javascript",
                     "expireDate" : "23.04.2017"
                 },
@@ -79,7 +79,26 @@ define([
                     $scope.isCreatedSuccessfully = false;
                     $('#myModal').modal('hide');
                     }, 3000);
-            }
+            };
+            $scope.gridOptions = {
+                enableRowSelection: true,
+                enableSelectAll: true,
+                selectionRowHeaderWidth: 35,
+                rowHeight: 35,
+                showGridFooter:true
+            };
+
+            $scope.gridOptions.columnDefs = [
+                { name: 'studentName' },
+                { name: 'projectName'},
+                { name: 'courseName', displayName: 'Age (not focusable)', allowCellFocus : false },
+                { name: 'softwareTools' },
+                { name: 'expireDate' }
+            ];
+
+            $scope.gridOptions.multiSelect = true;
+
+            $scope.gridOptions.data = $scope.resultList;
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);
