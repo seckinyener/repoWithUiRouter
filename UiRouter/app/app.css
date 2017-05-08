@@ -36,3 +36,84 @@ body{
 [ng-cloak] {
     display: none;
 }
+
+.dashboardStyle{
+  position: relative;
+  height: inherit;
+  background: #fff;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  width : 50%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.searchInput{
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.searchField{
+  margin: 20px;
+}
+
+.detailsPageDashboard{
+  background-color: #fff;
+  height: 450px;
+  border-style: groove;
+  border-radius: 10px;
+}
+
+.projectLabel{
+  color: #999;
+}
+
+.glyphicon-pencil:hover{
+  text-decoration: underline;
+  cursor:pointer;
+}
+
+.buttonGroup{
+  margin : 20px;
+}
+
+.headerText{
+  margin-left: 25px;
+}
+
+#sidebar {
+  background-color: #191919;
+  padding: 10px;
+}
+
+#sidebar a:hover, a:focus {
+  color: #FFF;
+  text-decoration: none;
+}
+
+#sidebar.nav > li > a,
+#sidebar.nav > li > a:link {
+  background-color: #191919;
+  color: #FFF;
+}
+
+#sidebar.nav > li > a:hover,
+#sidebar.nav > li > a:focus {
+  background-color: #373737;
+}
+
+#sidebar.nav-pills > li.active > a,
+#sidebar.nav-pills > li.active > a:hover,
+#sidebar.nav-pills > li.active > a:focus {
+  color: #FFF;
+  background-color: #C72A25;
+}
+
+.grid {
+  width: 500px;
+  height: 200px;
+}
