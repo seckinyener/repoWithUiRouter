@@ -1,0 +1,88 @@
+<div ng-controller="detailsCtrl">
+    <div class="col-md-12" style=" display: block; margin: 0 auto;">
+        <div class="col-md-12">
+
+            <section class="detailsPageDashboard " style=" margin: 40px">
+                <h2 class="headerText">ProjectDetails</h2>
+                <div class="col-md-6" style="margin-top: 20px;">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">Project Title</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput" type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">Project Scope</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput" type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">Software Tools</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput" type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12" ng-repeat="student in studentList">
+                        <div class="col-sm-4">
+                            <label style="color: #999;" >Student</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput" ng-model=student type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="margin-top: 20px;">
+                    <div class="col-md-4">
+                        <label style="color: #999;">Project Details</label>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="searchInput" rows="12" cols="60">
+                    </textarea>
+                    </div>
+                </div>
+                <div class="col-md-12 buttonGroup" style="float: right;">
+                    <div class="col-md-12" style="float:right;">
+                        <button type="button" class="btn btn-default" style="float:left;" ng-click="cancelButtonClicked()">Cancel</button>
+                        <div style="display: inline-block; float:right;">
+                            <a data-toggle="tooltip" title="If you want to add comment to project, please click here!" ng-click="addComment()" style="margin-right: 20px;"><span class="glyphicon glyphicon-pencil">Comment</span></a>
+                            <button type="button" class="btn btn-primary" ng-click="approveProject()">Approve</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+</div>
+
+<div id="commentModal" class="modal fade" role="dialog" ng-controller="detailsCtrl">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Comment for Project</h4>
+            </div>
+            <div class="modal-body" style="height: 100px;">
+                <div class="col-md-4">
+                    <label class="projectLabel">Comment</label>
+                </div>
+                <div class="col-md-6">
+                    <textarea class="searchInput" rows="3" cols="50">
+                    </textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="createProjectTemplate()">Create</button>
+            </div>
+        </div>
+
+    </div>
+</div>

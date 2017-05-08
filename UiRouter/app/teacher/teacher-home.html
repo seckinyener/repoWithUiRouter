@@ -1,1 +1,140 @@
-<p>Seckin Yener</p>
+<div ng-controller="teacherHomeCtrl">
+    <div class="col-md-6">
+        <section style="background-color: #fff; height: 350px; border:groove; border-radius:10px; margin-top:20px;">
+            <h2 class="headerText">My Open Projects</h2>
+            <div style="margin-left: 20px;" ui-grid="gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns ui-grid-move-columns></div>
+            <div class="col-md-12">
+                <button data-toggle="tooltip" title="Seckin" style="margin-top: 10px; float:right;" ng-click="createAProject()" class="btn btn-primary">Create a Project</button>
+            </div>
+        </section>
+    </div>
+
+    <div class="col-md-6">
+        <section style="background-color: #fff; height: 350px; border:groove; border-radius:10px; margin-top:20px;">
+            <h2 class="headerText">Student Projects</h2>
+            <div style="margin: 20px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Student Name</th>
+                            <th>Project Name</th>
+                            <th>Course</th>
+                            <th>Software Tools</th>
+                            <th>Expire Date</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-model="resultList">
+                        <tr ng-repeat = "result in resultList">
+                            <td>
+                                <input type="checkbox">
+                            </td>
+                            <td>{{result.studentName}}</td>
+                            <td>{{result.projectName}}</td>
+                            <td>{{result.courseName}}</td>
+                            <td>{{result.softwareTools}}</td>
+                            <td>{{result.expireDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button style="float: right; margin: 10px;" class="btn btn-primary" ng-click="showDetails()">Investigate</button>
+        </section>
+    </div>
+    <div class="col-md-12" style="margin-top : 20px;">
+        <section style="background-color: #fff; height: 250px; border:groove; border-radius:10px;">
+            <h2 class="headerText" style="margin-bottom: 20px;">Search Projects</h2>
+            <div>
+                <div class="col-md-3 col-xs-12 col-md-offset-1">
+                    <label class="projectLabel">Search By Project Name</label>
+                </div>
+                <div class="col-md-5 col-xs-7">
+                    <input class="searchInput" type="text">
+                </div>
+            </div>
+            <div>
+                <div class="col-md-3 col-xs-12 col-md-offset-1">
+                    <label class="projectLabel">Search By Project Id</label>
+                </div>
+                <div class="col-md-5 col-xs-7">
+                    <input class="searchInput" type="text">
+                </div>
+            </div>
+            <div>
+                <div class="col-md-3 col-xs-12 col-md-offset-1">
+                    <label class="projectLabel">Search By Student Name</label>
+                </div>
+                <div class="col-md-5 col-xs-7">
+                    <input class="searchInput" type="text">
+                </div>
+            </div>
+            <button style="float: right; margin: 10px;" class="btn btn-primary">Search</button>
+        </section>
+    </div>
+</div>
+<div id="myModal" class="modal fade" role="dialog" ng-controller="teacherHomeCtrl">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Create Project Template</h4>
+            </div>
+            <div class="alert alert-success" ng-if="isCreatedSuccessfully">
+                <center>
+                    <strong>{{alertMessage}}</strong>
+                </center>
+            </div>
+            <div class="modal-body" style="height: 420px;">
+                <div class="col-md-4">
+                    <label class="projectLabel">Project Name</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="searchInput" ng-model="projectForm.projectName" type="text">
+                </div>
+                <div class="col-md-4">
+                    <label class="projectLabel">Project Purpose</label>
+                </div>
+                <div class="col-md-6">
+                    <textarea class="searchInput" ng-model="projectForm.projectPurpose" rows="2" cols="50">
+                    </textarea>
+                </div>
+                <div class="col-md-4">
+                    <label class="projectLabel">Project Description</label>
+                </div>
+                <div class="col-md-6">
+                    <textarea class="searchInput" ng-model="projectForm.projectDescription" rows="2" cols="50">
+                    </textarea>
+                </div>
+                <div class="col-md-4">
+                    <label class="projectLabel">Project Details</label>
+                </div>
+                <div class="col-md-6">
+                    <textarea class="searchInput" ng-model="projectForm.projectDetails" rows="3" cols="50">
+                    </textarea>
+                </div>
+                <div class="col-md-4">
+                    <label class="projectLabel">Used Tools</label>
+                </div>
+                <div class="col-md-6">
+                    <textarea class="searchInput" ng-model="projectForm.usedTools" rows="3" cols="50">
+                    </textarea>
+                </div>
+                <div class="col-md-4">
+                    <label class="projectLabel">Expire Date</label>
+                </div>
+                <div class="col-md-6">
+                    <datepicker>
+                        <input ng-model="date" type="text"/>
+                    </datepicker>
+                    <!--<input class="searchInput" ng-model="projectForm.projectExpireDate" type="text">
+                    -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="createProjectTemplate()">Create</button>
+            </div>
+        </div>
+
+    </div>
+</div>
