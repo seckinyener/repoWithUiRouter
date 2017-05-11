@@ -8,7 +8,8 @@ define([
 	'teacher/teacher-homeController',
 	'angular-ui-router',
 	'teacher/teacher-home-module',
-	'projectDetails/details-module'
+	'projectDetails/details-module',
+	'student/student-home-module'
 ], function(angular, angularRoute, view1, view2) {
 	// Declare app level module which depends on views, and components
 	return angular.module('myApp', [
@@ -18,26 +19,46 @@ define([
 		'myApp.teacherHome',
 		'ui.router',
 		'myApp.teacherHome',
-		'myApp.projectDetails'
+		'myApp.projectDetails',
+		'myApp.studentHome'
 	]).
 	config(['$routeProvider','$stateProvider', '$urlRouterProvider', '$locationProvider', function($routeProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
 
         $stateProvider
-			.state('login', {
+			.state('home', {
 				url: '/login',
                 templateUrl: 'view1/view1.html'
             })
-			.state('teacherHome', {
+			.state('teacher', {
 				url: '/teacher',
-                templateUrl: 'teacher/teacher-home.html'
+                templateUrl: 'teacher/teacher-home.html',
+				params : {
+					sso : null,
+					password : null
+				}
             })
 			.state('details', {
                 url: '/details',
                 templateUrl: 'projectDetails/details.html'
 			})
+
+			.state('student', {
+                url: '/student',
+                templateUrl: 'student/student-home.html',
+                params : {
+                    sso : null,
+                    password : null
+                }
+            })
 			
 
 		$urlRouterProvider.otherwise('login');
-	}]);
+	}])
+
+        .controller('appController', ['$scope', '$http','$state', '$stateParams', function ($scope,$http,$state) {
+            //$state.go("home2");
+
+            $scope.test = true;
+        }]);
 });
 

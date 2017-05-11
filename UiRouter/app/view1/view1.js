@@ -4,14 +4,11 @@ define([
 	'angularRoute'
 ], function(angular) {
 	angular.module('myApp.view1', ['ngRoute'])
-	.controller('View1Ctrl', ['$scope', '$http','$state', '$stateParams', function ($scope,$http,$state, $stateParams) {
+	.controller('View1Ctrl', ['$scope', '$http','$state', function ($scope,$http,$state) {
 		//$state.go("home2");
-		
-		$scope.login = function(){
-			// if($scope.userPassword.includes("1"))
-			// 	$state.go("teacherHome");
-			
 
+		$scope.login = function(){
+			
 			var LoginServiceUrl = 'http://ali.techlife.com.tr/api/Term/Login?UserName='
 				+ $scope.username + '&Password=' + $scope.userPassword;
 			console.log(LoginServiceUrl);
@@ -32,6 +29,7 @@ define([
 				
 			});
 		}
+
 	}]);
 });
 
