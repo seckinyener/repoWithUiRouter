@@ -1,13 +1,6 @@
 /**
  * Created by sony on 17.04.2017.
  */
-/*define(['angular','teacher/teacher-homeController'], function(angular, teacherHomeController){
-    'use strict';
-    var teacherHomeModule = angular.module("myApp.teacherHome",[]);
-    teacherHomeModule.controller = ("teacherHomeCtrl", teacherHomeController);
-
-})*/
-
 
 'use strict';
 define([
@@ -15,7 +8,7 @@ define([
     'angularRoute'
 ], function(angular) {
     angular.module('myApp.teacherHome', ['ngRoute', 'ui.grid'])
-        .controller('teacherHomeCtrl', ['$scope', '$http', '$state','$timeout', function ($scope, $http, $state, $timeout) {
+        .controller('teacherHomeCtrl', ['$scope', '$http', '$state','$timeout', '$stateParams', function ($scope, $http, $state, $timeout, $stateParams) {
 
            $scope.test = true;
             $scope.isCreatedSuccessfully = false;
@@ -62,18 +55,9 @@ define([
                 project.courseName ="SoftwareEngineering";
                 project.softwareTools = $scope.projectForm.usedTools;
                 project.expireDate = $scope.projectForm.projectExpireDate;
-                $scope.myOpenProjectList.push(project);
-
-                var table = document.getElementById("openProjects");
-                var row = table.insertRow(1);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2);
-                var cell4 = row.insertCell(3);
-                cell1.innerHTML = $scope.projectForm.projectName;
-                cell2.innerHTML = project.courseName;
-                cell3.innerHTML = $scope.projectForm.usedTools;
-                cell4.innerHTML = $scope.projectForm.projectExpireDate;
+                $scope.gridOptions.data = $scope.list;
+                $scope.list.push(project);
+                $scope.gridOptions.data = $scope.list;
 
                 $timeout( function(){
                     $scope.isCreatedSuccessfully = false;
@@ -83,22 +67,29 @@ define([
             $scope.gridOptions = {
                 enableRowSelection: true,
                 enableSelectAll: true,
-                selectionRowHeaderWidth: 35,
+                selectionRowHeaderWidth: 5,
                 rowHeight: 35,
-                showGridFooter:true
+                showGridFooter:false
             };
 
             $scope.gridOptions.columnDefs = [
-                { name: 'studentName' },
-                { name: 'projectName'},
-                { name: 'courseName', displayName: 'Age (not focusable)', allowCellFocus : false },
-                { name: 'softwareTools' },
-                { name: 'expireDate' }
+                { name: "",
+                    field : "check",
+                    headerTemplate: '<input type=\"checkbox\"',
+                    cellTemplate : '<input type=\"checkbox\" ng-model=\"{{COL_FIELD}}\" ng-true-value=\'Y\' ng-false-value=\'N\' />',
+                    width: '1%',
+                },
+
+                { name: 'projectName',  field : 'projectName', width: '20%' },
+                { name: 'courseName', field : 'courseName'},
+                { name: 'softwareTools', field : 'softwareTools'},
+                { name: 'expireDate', field: 'expireDate'}
             ];
 
             $scope.gridOptions.multiSelect = true;
 
-            $scope.gridOptions.data = $scope.resultList;
+            $scope.list = [];
+            $scope.gridOptions.data = $scope.list;
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);
