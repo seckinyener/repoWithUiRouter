@@ -8,9 +8,9 @@ define([
     'angularRoute'
 ], function(angular) {
     angular.module('myApp.teacherHome', ['ngRoute', 'ui.grid'])
-        .controller('teacherHomeCtrl', ['$scope', '$http', '$state','$timeout', '$stateParams', function ($scope, $http, $state, $timeout, $stateParams) {
+        .controller('teacherHomeCtrl', ['$scope', '$http', '$state','$timeout', '$stateParams','$q', function ($scope, $http, $state, $timeout, $stateParams, $q) {
 
-           $scope.test = true;
+            $scope.test = true;
             $scope.isCreatedSuccessfully = false;
             $scope.myOpenProjectList = [];
             $scope.projectForm = {};
@@ -55,7 +55,6 @@ define([
                 project.courseName ="SoftwareEngineering";
                 project.softwareTools = $scope.projectForm.usedTools;
                 project.expireDate = $scope.projectForm.projectExpireDate;
-                $scope.gridOptions.data = $scope.list;
                 $scope.list.push(project);
                 $scope.gridOptions.data = $scope.list;
 
@@ -80,16 +79,23 @@ define([
                     width: '1%',
                 },
 
-                { name: 'projectName',  field : 'projectName', width: '20%' },
-                { name: 'courseName', field : 'courseName'},
-                { name: 'softwareTools', field : 'softwareTools'},
-                { name: 'expireDate', field: 'expireDate'}
+                { field : 'projectName', width: '20%' },
+                { field : 'courseName'},
+                { field : 'softwareTools'},
+                { field: 'expireDate'}
             ];
 
             $scope.gridOptions.multiSelect = true;
 
-            $scope.list = [];
-            $scope.gridOptions.data = $scope.list;
+            var getOpenProjects = function(){
+                var deferred = $q.defer();
+                deferred.resolve($scope.resultList);
+                return deferred.promise;
+            }
+
+            getOpenProjects().then(function(response){
+                $scope.gridOptions.data = response;
+            });
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);
