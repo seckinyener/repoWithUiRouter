@@ -1,7 +1,9 @@
 /**
  * Created by sony on 16.04.2017.
  */
-define([],function(){
+
+define([
+    ],function(){
     'use strict';
     var teacherPageController = function($scope){
         $scope.test = true;
@@ -52,3 +54,4 @@ define([],function(){
     teacherPageController.$inject = ['$scope'];
     return teacherPageController;
 });
+
