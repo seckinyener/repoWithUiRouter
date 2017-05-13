@@ -18,11 +18,11 @@ define([
 				//login başarılı mı?
 				if(response.data != null)
 				{
-					$state.go("teacherHome");
+					$state.go("teacher", { sso: $scope.username, password : $scope.userPassword});
 				}
 				else
 				{
-					alert('Kullanıcı adı ve/veya şifre hatalı');
+                    $state.go("student", { sso: $scope.username, password : $scope.userPassword});
 				}
 				
 			}, function errorCallback(response) {
