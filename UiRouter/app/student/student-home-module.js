@@ -18,6 +18,9 @@ define([
         .controller('studentHomeCtrl', ['$scope', '$http', '$state','$timeout', '$stateParams', function ($scope, $http, $state, $timeout, $stateParams) {
 
            var test = true;
+           $scope.createAProject = function(){
+               $state.go('initProject', { sso : $stateParams.sso, password: $stateParams.password});
+           }
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);

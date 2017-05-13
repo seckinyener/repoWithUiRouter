@@ -24,7 +24,7 @@ define([
             };
 
             $scope.cancelButtonClicked = function(){
-                $state.go("teacherHome");
+                $state.go("teacher");
             }
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
