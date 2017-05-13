@@ -9,7 +9,8 @@ define([
 	'angular-ui-router',
 	'teacher/teacher-home-module',
 	'projectDetails/details-module',
-	'student/student-home-module'
+	'student/student-home-module',
+	'createProject/create-project-module'
 ], function(angular, angularRoute, view1, view2) {
 	// Declare app level module which depends on views, and components
 	return angular.module('myApp', [
@@ -20,7 +21,8 @@ define([
 		'ui.router',
 		'myApp.teacherHome',
 		'myApp.projectDetails',
-		'myApp.studentHome'
+		'myApp.studentHome',
+		'myApp.createProject'
 	]).
 	config(['$routeProvider','$stateProvider', '$urlRouterProvider', '$locationProvider', function($routeProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -50,7 +52,14 @@ define([
                     password : null
                 }
             })
-			
+			.state('initProject', {
+                url: '/initProject',
+                templateUrl: 'createProject/create-project.html',
+                params : {
+                    sso : null,
+                    password : null
+                }
+            })
 
 		$urlRouterProvider.otherwise('login');
 	}])

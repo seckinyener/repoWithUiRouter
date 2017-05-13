@@ -1,0 +1,80 @@
+<div ng-controller="createProjectCtrl">
+    <div class="col-md-12" style=" display: block; margin: 0 auto;">
+        <div class="col-md-12">
+
+            <section class="detailsPageDashboard " style=" margin: 40px">
+                <h2 class="headerText">Create Project</h2>
+                <div class="col-md-6" style="margin-top: 20px;">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">Project Title</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput" type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">Project Scope</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput" type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">Software Tools</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput" type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">Upload Attachment</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput" type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12" ng-repeat="student in studentList">
+                        <div class="col-sm-4">
+                            <label style="color: #999;" >Student</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" ng-model="selectedStudents[$index]"
+                                   typeahead="st as (st.name + ' - ' + st.sso) for st in students | filter:$viewValue | limitTo:8"
+                                   typeahead-on-select="setStudent(selectedStudent)" class="form-control">
+                        </div>
+                        <div class="col-md-2" ng-if= "$index < 2" ng-click="addNewStudent()" data-toggle="tooltip" title="You can add maximum 3 students for the project.">
+                            <a><span class="glyphicon glyphicon-plus-sign" ></span> Plus
+                            </a>
+                        </div>
+                        <div class="col-md-2" ng-if="$index > 0">
+                            <a><span class="glyphicon glyphicon-trash" ng-click="removeRow($index)"></span> Remove
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="margin-top: 20px;">
+                    <div class="col-md-4">
+                        <label style="color: #999;">Project Details</label>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="searchInput" rows="12" cols="60">
+                    </textarea>
+                    </div>
+                </div>
+                <div class="col-md-12 buttonGroup" style="float: right;">
+                    <div class="col-md-12" style="float:right;">
+                        <button type="button" class="btn btn-default" style="float:left;" ng-click="backToHomePage()">Cancel</button>
+                        <div style="display: inline-block; float:right;">
+                            <button type="button" class="btn btn-primary" ng-click="submitProject()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </div>
+</div>

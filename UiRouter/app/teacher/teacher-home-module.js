@@ -55,8 +55,8 @@ define([
                 project.courseName ="SoftwareEngineering";
                 project.softwareTools = $scope.projectForm.usedTools;
                 project.expireDate = $scope.projectForm.projectExpireDate;
-                $scope.list.push(project);
-                $scope.gridOptions.data = $scope.list;
+                $scope.resultList.push(project);
+                $scope.gridOptions.data = $scope.resultList;
 
                 $timeout( function(){
                     $scope.isCreatedSuccessfully = false;
@@ -67,6 +67,7 @@ define([
                 enableRowSelection: true,
                 enableSelectAll: true,
                 selectionRowHeaderWidth: 5,
+                enableRowHashing:false,
                 rowHeight: 35,
                 showGridFooter:false
             };
