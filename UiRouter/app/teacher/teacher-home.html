@@ -1,4 +1,4 @@
-<div ng-controller="teacherPageController">
+<div ng-controller="teacherHomeCtrl">
     <div class="col-md-6">
         <section style="background-color: #fff; height: 350px; border:groove; border-radius:10px; margin-top:20px;">
             <h2 class="headerText">My Open Projects asdasd</h2>
@@ -25,7 +25,7 @@
                         </tr>
                     </thead>
                     <tbody ng-model="resultList">
-                        <tr ng-repeat = "result in resultList">
+                        <tr ng-repeat="result in resultList">
                             <td>
                                 <input type="checkbox">
                             </td>
@@ -42,7 +42,34 @@
         </section>
     </div>
     <div class="col-md-12" style="margin-top : 20px;">
-        <section style="background-color: #fff; height: 250px; border:groove; border-radius:10px;">
+        <section style="background-color: #fff; height: 400px; border:groove; border-radius:10px;">
+            <h2 class="headerText" style="margin-bottom: 20px;">Search Projects</h2>
+            <div class="col-md-12">
+                <label style="float:left;margin-top:5px" for="">Search By Project Name:</label>
+                <div class="form-group col-md-8">
+                    <input class="searchInput form-control " type="text">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label style="float:left;margin-top:5px" for="">Search By Project Id:</label>
+                <div class="form-group col-md-8">
+                    <input class="searchInput form-control col-md-8" type="text">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label style="float:left;margin-top:5px" for="">Search By Student Name:</label>
+                <div class="form-group col-md-8">
+                    <input class="searchInput form-control col-md-8" type="text">
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="input-group">
+                    <button style="float: right; margin: 10px;" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+
+        </section>
+        <!--<section style="background-color: #fff; height: 250px; border:groove; border-radius:10px;">
             <h2 class="headerText" style="margin-bottom: 20px;">Search Projects</h2>
             <div>
                 <div class="col-md-3 col-xs-12 col-md-offset-1">
@@ -60,16 +87,16 @@
                     <input class="searchInput" type="text">
                 </div>
             </div>
-            <div>
+            <div class="form-group">
                 <div class="col-md-3 col-xs-12 col-md-offset-1">
                     <label class="projectLabel">Search By Student Name</label>
                 </div>
                 <div class="col-md-5 col-xs-7">
-                    <input class="searchInput" type="text">
+                    <input class="searchInput form-control" type="text">
                 </div>
             </div>
             <button style="float: right; margin: 10px;" class="btn btn-primary">Search</button>
-        </section>
+        </section>-->
     </div>
 </div>
 <div id="myModal" class="modal fade" role="dialog" ng-controller="teacherHomeCtrl">
@@ -85,12 +112,62 @@
                     <strong>{{alertMessage}}</strong>
                 </center>
             </div>
-            <div class="modal-body" style="height: 420px;">
-                <div class="col-md-4">
-                    <label class="projectLabel">Project Name</label>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="">Project Name</label>
+                    <input type="text" ng-model="projectForm.projectName" class="form-control" id="exampleInputEmail1" placeholder="" />
                 </div>
-                <div class="col-md-6">
-                    <input class="searchInput" ng-model="projectForm.projectName" type="text">
+                <div class="form-group">
+                    <label for="">Project Lesson:</label>
+                    <select class="form-control" ng-init="projectForm.projectLesson = lessons[0]" ng-model="projectForm.projectLesson">
+                        <option value="{{lesson}}" ng-repeat="lesson in lessons">{{lesson.Name}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Project Purpose</label>
+                    <input type="text" ng-model="projectForm.projectPurpose" class="form-control" id="exampleInputEmail1" placeholder="" />
+                </div>
+
+
+                <div class="form-group">
+                    <label for="">Project Description</label>
+                    <textarea ng-model="projectForm.projectDescription" class="form-control" id="exampleInputEmail1" placeholder="" />
+                    </textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Project Details</label>
+                    <textarea ng-model="projectForm.projectDetails" class="form-control" id="exampleInputEmail1" placeholder="" />
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <label for="">Used Tools</label>
+                    <input type="text" ng-model="projectForm.usedTools" class="form-control" id="exampleInputEmail1" placeholder="" />
+                </div>
+
+                <div class="form-group">
+                    <label for="">Expire Date</label>
+                    <input type="date" ng-model="projectForm.projectExpireDate" class="form-control" id="exampleInputEmail1" placeholder="" />
+                </div>
+
+                <div class="form-group">
+                    <label for="">Start Date</label>
+                    <input type="date" ng-model="projectForm.StartDate" class="form-control" id="exampleInputEmail1" placeholder="" />
+                </div>
+
+                <div class="form-group">
+                    <label for="">End Date</label>
+                    <input type="date" ng-model="projectForm.EndDate" class="form-control" id="exampleInputEmail1" placeholder="" />
+                </div>
+
+                <!--<div class="col-md-4">
+                    <label class="projectLabel">Project Name</label>
+                </div>-->
+                <!--<div class="col-md-8 input-group">
+                    <label class="projectLabel">Project Name</label>
+                    <input class="searchInput form-control" ng-model="projectForm.projectName" type="text">
                 </div>
                 <div class="col-md-4">
                     <label class="projectLabel">Project Purpose</label>
@@ -126,9 +203,21 @@
                 <div class="col-md-6">
                     <input class="searchInput" ng-model="projectForm.projectExpireDate" type="text">
                 </div>
+                <div class="col-md-4">
+                    <label class="projectLabel">Start Date</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="searchInput" ng-model="projectForm.projectExpireDate" type="text">
+                </div>
+                <div class="col-md-4">
+                    <label class="projectLabel">End Date</label>
+                </div>
+                <div class="col-md-6">
+                    <input class="searchInput" ng-model="projectForm.projectExpireDate" type="text">
+                </div>-->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" ng-click="createProjectTemplate()">Create</button>
+                <button type="button" class="btn btn-primary" ng-click="createProjectTemplate(projectForm)">Create</button>
             </div>
         </div>
 

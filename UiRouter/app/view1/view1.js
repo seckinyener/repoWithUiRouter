@@ -18,7 +18,7 @@ define([
 				//login başarılı mı?
 				if(response.data != null)
 				{
-					$state.go("teacherHome");
+					$state.go("teacher");
 				}
 				else
 				{
