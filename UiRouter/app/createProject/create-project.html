@@ -10,7 +10,7 @@
                             <label style="color: #999;">Project Title</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" type="text">
+                            <input class="searchInput form-control" type="text">
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -18,7 +18,7 @@
                             <label style="color: #999;">Project Scope</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" type="text">
+                            <input class="searchInput form-control" type="text">
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -26,7 +26,7 @@
                             <label style="color: #999;">Software Tools</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" type="text">
+                            <input  class="searchInput form-control" type="text">
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -34,7 +34,7 @@
                             <label style="color: #999;">Upload Attachment</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" type="text">
+                            <input ngf-select="onFileSelect($files)" class="searchInput form-control" type="file" multiple>
                         </div>
                     </div>
                     <div class="col-sm-12" ng-repeat="student in studentList">
@@ -61,7 +61,7 @@
                         <label style="color: #999;">Project Details</label>
                     </div>
                     <div class="col-md-8">
-                        <textarea class="searchInput" rows="12" cols="60">
+                        <textarea class="searchInput form-control" rows="12" cols="60">
                     </textarea>
                     </div>
                 </div>

@@ -25,38 +25,28 @@ define([
             }, function errorCallback(response) {
 
             });
+            
 
 
+            // projeleri getir
+            $scope.GetProjectList = function () {
 
-            $scope.resultList = [{
-                "studentName": "Mike Charlton",
-                "projectName": "Test",
-                "courseName": "Se",
-                "softwareTools": "Java,Angular,SpringBoot",
-                "expireDate": "23.04.2017"
-            },
-            {
-                "studentName": "Ryan Gosling",
-                "projectName": "Deneme",
-                "courseName": "Seccccc",
-                "softwareTools": ".Net,Javascript",
-                "expireDate": "23.04.2017"
-            },
-            {
-                "studentName": "James Gosling",
-                "projectName": "Deneme",
-                "courseName": "Se",
-                "softwareTools": "Java",
-                "expireDate": "23.04.2017"
-            }];
+                var ProjectListService = 'http://ali.techlife.com.tr/api/Term/GetUserProjectDescs?UserId=4';
+
+                $http({ method: 'GET', url: ProjectListService }).then(function successCallback(response) {
+                    $scope.projects = response.data;
+                    console.log($scope.projects);
+                }, function errorCallback(response) {
+
+                });
+            }
+
+            $scope.GetProjectList();
 
             $scope.createAProject = function () {
                 $scope.test = true;
                 //$scope.projectForm = {};
                 $('#myModal').modal('show');
-
-
-
 
             }
 
@@ -65,17 +55,17 @@ define([
             }
 
             $scope.createProjectTemplate = function (projectForm) {
-                $scope.isCreatedSuccessfully = true;
-                $scope.alertMessage = "Project created successfully";
-                var project = {};
+                // $scope.isCreatedSuccessfully = true;
+                // $scope.alertMessage = "Project created successfully";
+                // var project = {};
 
-                project.projectName = $scope.projectForm.projectName;
-                project.courseName = "SoftwareEngineering";
-                project.softwareTools = $scope.projectForm.usedTools;
-                project.expireDate = $scope.projectForm.projectExpireDate;
+                // project.projectName = $scope.projectForm.projectName;
+                // project.courseName = "SoftwareEngineering";
+                // project.softwareTools = $scope.projectForm.usedTools;
+                // project.expireDate = $scope.projectForm.projectExpireDate;
 
-                // $scope.resultList.push(project);
-                // $scope.gridOptions.data = $scope.resultList;
+                // // $scope.resultList.push(project);
+                // // $scope.gridOptions.data = $scope.resultList;
 
                 console.log();
 
@@ -83,22 +73,33 @@ define([
 
                 $http({
                     method: 'POST', url: SaveProjectService, data: {
-                            "Id": 0,
-                            "Name": $scope.projectForm.projectName,
-                            "LessonId": JSON.parse($scope.projectForm.projectLesson).Id,
-                            "LessonName": JSON.parse($scope.projectForm.projectLesson).Name,
-                            "ScoreEffect": 100,
-                            "StartDate": $scope.projectForm.StartDate,
-                            "EndDate": $scope.projectForm.EndDate,
-                            "Description": $scope.projectForm.projectDescription,
-                            "ParentId": 0,
-                            "UserId": 4,
-                            "isDeleted": false
+                        "Id": 0,
+                        "Name": $scope.projectForm.projectName,
+                        "LessonId": JSON.parse($scope.projectForm.projectLesson).Id,
+                        "LessonName": JSON.parse($scope.projectForm.projectLesson).Name,
+                        "ScoreEffect": 100,
+                        "StartDate": $scope.projectForm.StartDate,
+                        "EndDate": $scope.projectForm.EndDate,
+                        "Description": $scope.projectForm.projectDescription,
+                        "ParentId": 0,
+                        "UserId": 4,
+                        "isDeleted": false
 
-                        }
-                    
+                    }
+
                 }).then(function successCallback(response) {
+                    if(response.data == true)
+                    {
+                        $scope.GetProjectList();
+                        $('#myModal').modal('hide');
+                        $scope.projectForm = {};
 
+                    }
+                    else
+                    {
+                        alert("proje kaydedilemedi.");
+                    }
+                    
                 }, function errorCallback(response) {
 
                 });
