@@ -117,3 +117,12 @@ td, th {
   width: 700px;
   height: 200px;
 }
+
+.deleteIcon{
+  cursor:pointer;
+  color:red;
+}
+
+deleteIcon:hover{
+  text-decoration: underline;
+}

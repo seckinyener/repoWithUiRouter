@@ -50,9 +50,9 @@
                             <a><span class="glyphicon glyphicon-plus-sign" ></span> Plus
                             </a>
                         </div>
-                        <div class="col-md-2" ng-if="$index > 0">
-                            <a><span class="glyphicon glyphicon-trash" ng-click="removeRow($index)"></span> Remove
-                            </a>
+                        <div class="col-md-2 deleteIcon" ng-click="removeRow($index)" ng-if="$index > 0">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+
                         </div>
                     </div>
                 </div>
@@ -76,5 +76,6 @@
 
             </section>
         </div>
+
     </div>
 </div>
