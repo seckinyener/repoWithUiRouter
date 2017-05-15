@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-4">
                             <input type="text" ng-model="selectedStudents[$index]"
-                                   typeahead="st as (st.name + ' - ' + st.sso) for st in students | filter:$viewValue | limitTo:8"
+                                   typeahead="st as (st.Name + ' - ' + st.Id) for st in students | filter:$viewValue | limitTo:8"
                                    typeahead-on-select="setStudent(selectedStudent)" class="form-control">
                         </div>
                         <div class="col-md-2" ng-if= "$index < 2" ng-click="addNewStudent()" data-toggle="tooltip" title="You can add maximum 3 students for the project.">

@@ -12,18 +12,14 @@ define([
 
             var test = true;
             $scope.selectedStudents = [];
-            $scope.students = [{
-                "name" : "Seckin Yener",
-                    "sso" : "12345",
-            },
-            {
-                "name" : "Ali Bolu",
-                "sso" : "12345",
-            },
-            {
-                "name" : "Can Hebele",
-                "sso" : "12345",
-            }];
+            var lessonId = $scope.selectedProject.lessonId;
+            var userByLessonService = 'http://ali.techlife.com.tr/api/Term/GetUserByLesson?LessonId=' + lessonId
+            $http({ method: 'GET', url: userByLessonService }).then(function successCallback(response) {
+                $scope.students = response.data;
+            }, function errorCallback(response) {
+                var test = response;
+            });
+
             $scope.studentList = [];
 
             $scope.submitProject = function(){
@@ -53,6 +49,8 @@ define([
             }
 
             $scope.addNewStudent();
+
+
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);
 });

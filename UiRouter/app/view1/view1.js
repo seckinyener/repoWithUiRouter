@@ -23,7 +23,7 @@ define([
 				}
 				else if(response.data.RoleId === 1)
 				{
-                    $state.go("student", { sso: $scope.username, password : $scope.userPassword});
+                    $state.go("first");
 				}
 				
 			}, function errorCallback(response) {

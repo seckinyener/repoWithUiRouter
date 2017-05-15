@@ -29,11 +29,17 @@ define([
             });
 
            $scope.createAProject = function(){
-               $state.go('initProject', { sso : $stateParams.sso, password: $stateParams.password});
+               $state.go('first.initProject');
            }
 
-            $scope.clickedCheckbox = function(rowLine){
-                var abc = rowLine;
+            $scope.clickedCheckbox = function(data){
+               $scope.selectedProject.name = data.Name;
+               $scope.selectedProject.description= data.Description;
+               $scope.selectedProject.endDate = data.EndDate;
+               $scope.selectedProject.projectId= data.Id;
+               $scope.selectedProject.lessonId= data.LessonId;
+               $scope.selectedProject.name= data.Name;
+               $scope.selectedProject.startDate= data.StartDate;
             }
 
             $scope.gridOptions = {
@@ -50,7 +56,7 @@ define([
                     name: "",
                     field: "check",
                     headerCellClass: '<input type="checkbox"',
-                    cellTemplate: '<input type="checkbox" ng-model="grid.appScope.selectedRow[row.uid]" ng-click="grid.appScope.clickedCheckbox(row)">',
+                    cellTemplate: '<input type="checkbox" ng-model="grid.appScope.selectedRow[row.uid]" ng-click="grid.appScope.clickedCheckbox(row.entity)">',
                     width: '1%',
                 },
                 { name: 'Course Name', field: 'LessonName' },

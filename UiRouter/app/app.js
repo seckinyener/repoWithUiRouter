@@ -10,7 +10,8 @@ define([
 	'teacher/teacher-home-module',
 	'projectDetails/details-module',
 	'student/student-home-module',
-	'createProject/create-project-module'
+	'createProject/create-project-module',
+	'first/first-page-module'
 ], function(angular, angularRoute, view1, view2) {
 	// Declare app level module which depends on views, and components
 	return angular.module('myApp', [
@@ -22,7 +23,8 @@ define([
 		'myApp.teacherHome',
 		'myApp.projectDetails',
 		'myApp.studentHome',
-		'myApp.createProject'
+		'myApp.createProject',
+		'myApp.firstPage'
 	]).
 	config(['$routeProvider','$stateProvider', '$urlRouterProvider', '$locationProvider', function($routeProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
 
@@ -44,21 +46,23 @@ define([
                 templateUrl: 'projectDetails/details.html'
 			})
 
-			.state('student', {
-                url: '/student',
+			.state('first', {
+				url:'/student',
+                templateUrl: 'first/first-page.html'
+			})
+
+			.state('first.student', {
                 templateUrl: 'student/student-home.html',
-                params : {
-                    sso : null,
-                    password : null
-                }
             })
-			.state('initProject', {
+
+			.state('first.initProject', {
+				url: '/initProject',
+                templateUrl: 'createProject/create-project.html'
+			})
+
+			.state('student.initProject', {
                 url: '/initProject',
-                templateUrl: 'createProject/create-project.html',
-                params : {
-                    sso : null,
-                    password : null
-                }
+                templateUrl: 'createProject/create-project.html'
             })
 
 		$urlRouterProvider.otherwise('login');
