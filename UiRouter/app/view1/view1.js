@@ -16,12 +16,12 @@ define([
 			$http({method:'GET',url:LoginServiceUrl}).then(function successCallback(response) {
 				console.log(response);
 				//login başarılı mı?
-				if(response.data != null)
+				if(response.data.RoleId === 2)
 				{
 
 					$state.go("teacher", { sso: $scope.username, password : $scope.userPassword});
 				}
-				else
+				else if(response.data.RoleId === 1)
 				{
                     $state.go("student", { sso: $scope.username, password : $scope.userPassword});
 				}

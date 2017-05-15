@@ -1,3 +1,4 @@
+
 /**
  * Created by sony on 17.04.2017.
  */
@@ -8,7 +9,7 @@ define([
     'angularRoute'
 ], function (angular) {
     angular.module('myApp.teacherHome', ['ngRoute', 'ui.grid'])
-        .controller('teacherHomeCtrl', ['$scope', '$http', '$state', '$timeout', '$stateParams', '$q', function ($scope, $http, $state, $timeout, $stateParams, $q) {
+        .controller('teacherHomeCtrl', ['$scope', '$http', '$state', '$timeout', '$stateParams', '$q', '$window', function ($scope, $http, $state, $timeout, $stateParams, $q, $window) {
 
             $scope.test = true;
             $scope.isCreatedSuccessfully = false;
@@ -25,8 +26,6 @@ define([
             }, function errorCallback(response) {
 
             });
-            
-
 
             // projeleri getir
             $scope.GetProjectList = function () {
@@ -35,7 +34,8 @@ define([
 
                 $http({ method: 'GET', url: ProjectListService }).then(function successCallback(response) {
                     $scope.projects = response.data;
-                    console.log($scope.projects);
+                    $scope.gridOptions.data = response.data;
+                    $scope.gridApi.grid.refresh();
                 }, function errorCallback(response) {
 
                 });
@@ -55,20 +55,6 @@ define([
             }
 
             $scope.createProjectTemplate = function (projectForm) {
-                // $scope.isCreatedSuccessfully = true;
-                // $scope.alertMessage = "Project created successfully";
-                // var project = {};
-
-                // project.projectName = $scope.projectForm.projectName;
-                // project.courseName = "SoftwareEngineering";
-                // project.softwareTools = $scope.projectForm.usedTools;
-                // project.expireDate = $scope.projectForm.projectExpireDate;
-
-                // // $scope.resultList.push(project);
-                // // $scope.gridOptions.data = $scope.resultList;
-
-                console.log();
-
                 var SaveProjectService = 'http://ali.techlife.com.tr/api/Term/SaveProjectDesc';
 
                 $http({
@@ -121,32 +107,32 @@ define([
                 showGridFooter: false
             };
 
+            $scope.clickedCheckbox = function(row){
+                var test = row;
+            }
+
             $scope.gridOptions.columnDefs = [
                 {
                     name: "",
                     field: "check",
                     headerTemplate: '<input type=\"checkbox\"',
-                    cellTemplate: '<input type=\"checkbox\" ng-model=\"{{COL_FIELD}}\" ng-true-value=\'Y\' ng-false-value=\'N\' />',
+                    cellTemplate: '<input type="checkbox" ng-model="{{COL_FIELD}}\" ng-click="grid.appScope.clickedCheckbox(row)" ng-true-value=\'Y\' ng-false-value=\'N\' />',
                     width: '1%',
                 },
 
-                { field: 'projectName', width: '20%' },
-                { field: 'courseName' },
-                { field: 'softwareTools' },
-                { field: 'expireDate' }
+                { name: 'Project Name', field: 'Name', width: '20%' },
+                { name: 'Description', field: 'Description' },
+                { name: 'Course Name', field: 'LessonName' },
+                { name: 'Start Date', field: 'StartDate' },
+                { name: 'Deadline', field:'EndDate' },
+                { name: 'Score Effect', field:'ScoreEffect' },
             ];
 
             $scope.gridOptions.multiSelect = true;
 
-            var getOpenProjects = function () {
-                var deferred = $q.defer();
-                deferred.resolve($scope.resultList);
-                return deferred.promise;
+            $scope.gridOptions.onRegisterApi = function( gridApi ) {
+                $scope.gridApi = gridApi;
             }
-
-            getOpenProjects().then(function (response) {
-                $scope.gridOptions.data = response;
-            });
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);

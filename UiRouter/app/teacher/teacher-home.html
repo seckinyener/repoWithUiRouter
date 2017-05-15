@@ -7,33 +7,8 @@
                     class="btn btn-primary">Create a Project</button>
             </div>
 
-            <!--<div style="margin-left: 20px;" ui-grid="gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns ui-grid-move-columns></div>-->
-            <div style="margin: 20px;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Project Name</th>
-                            <th>Course Name</th>
-                            <th>Software Tools</th>
-                            <th>Score Effect</th>
-                            <th>Expire Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="project in projects">
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>{{project.Name}}</td>
-                            <td>{{project.LessonName}}</td>
-                            <td>{{project.Description}}</td>
-                            <td>{{project.ScoreEffect}}</td>
-                            <td>{{project.EndDate}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+           <div style="margin: 70px;" ui-grid="gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns ui-grid-move-columns></div>
+
 
         </section>
     </div>
@@ -171,60 +146,6 @@
                     <label for="">Deadline</label>
                     <input type="date" ng-model="projectForm.EndDate" class="form-control" id="exampleInputEmail1" placeholder="" />
                 </div>
-
-                <!--<div class="col-md-4">
-                    <label class="projectLabel">Project Name</label>
-                </div>-->
-                <!--<div class="col-md-8 input-group">
-                    <label class="projectLabel">Project Name</label>
-                    <input class="searchInput form-control" ng-model="projectForm.projectName" type="text">
-                </div>
-                <div class="col-md-4">
-                    <label class="projectLabel">Project Purpose</label>
-                </div>
-                <div class="col-md-6">
-                    <textarea class="searchInput" ng-model="projectForm.projectPurpose" rows="2" cols="50">
-                    </textarea>
-                </div>
-                <div class="col-md-4">
-                    <label class="projectLabel">Project Description</label>
-                </div>
-                <div class="col-md-6">
-                    <textarea class="searchInput" ng-model="projectForm.projectDescription" rows="2" cols="50">
-                    </textarea>
-                </div>
-                <div class="col-md-4">
-                    <label class="projectLabel">Project Details</label>
-                </div>
-                <div class="col-md-6">
-                    <textarea class="searchInput" ng-model="projectForm.projectDetails" rows="3" cols="50">
-                    </textarea>
-                </div>
-                <div class="col-md-4">
-                    <label class="projectLabel">Used Tools</label>
-                </div>
-                <div class="col-md-6">
-                    <textarea class="searchInput" ng-model="projectForm.usedTools" rows="3" cols="50">
-                    </textarea>
-                </div>
-                <div class="col-md-4">
-                    <label class="projectLabel">Expire Date</label>
-                </div>
-                <div class="col-md-6">
-                    <input class="searchInput" ng-model="projectForm.projectExpireDate" type="text">
-                </div>
-                <div class="col-md-4">
-                    <label class="projectLabel">Start Date</label>
-                </div>
-                <div class="col-md-6">
-                    <input class="searchInput" ng-model="projectForm.projectExpireDate" type="text">
-                </div>
-                <div class="col-md-4">
-                    <label class="projectLabel">End Date</label>
-                </div>
-                <div class="col-md-6">
-                    <input class="searchInput" ng-model="projectForm.projectExpireDate" type="text">
-                </div>-->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" ng-click="createProjectTemplate(projectForm)">Create</button>
