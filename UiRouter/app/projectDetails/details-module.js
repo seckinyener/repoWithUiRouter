@@ -9,15 +9,8 @@ define([
     angular.module('myApp.projectDetails', ['ngRoute', 'ui.bootstrap'])
         .controller('detailsCtrl', ['$scope', '$http','$state', '$stateParams', function ($scope,$http,$state, $stateParams) {
             $scope.studentList = [];
-            var student1 = "Seckin Yener";
-            var student2 = "Ali Bolu";
-            var student3 = "Can";
-            $scope.studentList.push(student1);
-            $scope.studentList.push(student2);
-            $scope.studentList.push(student3);
-
-            $scope.selected = undefined;
-            $scope.states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Dakota', 'North Carolina', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+            $scope.projectDetails = {};
+            var userIds = [];
 
             $scope.addComment = function(){
                 $('#commentModal').modal('show');
@@ -25,6 +18,48 @@ define([
 
             $scope.cancelButtonClicked = function(){
                 $state.go("teacher");
+            }
+
+            var projectDetailsService = 'http://ali.techlife.com.tr/api/Term/GetProject?ProjectId=' + $stateParams.projectId;
+
+            var getUserInformation = function(userIdList){
+                _.each(userIdList, function(user){
+                    var projectDetailsService = 'http://ali.techlife.com.tr/api/Term/GetUser?UserId=' + user;
+                    $http({ method: 'GET', url: projectDetailsService }).then(function successCallback(response) {
+                        $scope.studentList.push(response.data);
+                    }, function errorCallback(response) {
+                        console.log("hata olustu..");
+                    });
+                })
+            }
+
+            $http({ method: 'GET', url: projectDetailsService }).then(function successCallback(response) {
+                $scope.projectDetails = response.data;
+                userIds = response.data.UserIds;
+                getUserInformation(userIds);
+            }, function errorCallback(response) {
+                console.log("hata olustu..");
+            });
+
+            $scope.submitComment = function(){
+                var SaveProjectService = 'http://ali.techlife.com.tr/api/Term/AddProjectComment';
+                $http({
+                    method: 'POST', url: SaveProjectService, data: {
+                        "Id": 0,
+                        "ProjectId": $stateParams.projectId,
+                        "UserId": 4,
+                        "Comment": $scope.teacherComment,
+                        "CreateDate": new Date(),
+                        "IsDelete": false
+                    }
+
+                }).then(function successCallback(response) {
+                    var test = response.data;
+                    $('#commentModal').modal('hide');
+                }, function errorCallback(response) {
+                    var fail = response;
+                });
+
             }
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });

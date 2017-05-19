@@ -43,7 +43,10 @@ define([
             })
 			.state('details', {
                 url: '/details',
-                templateUrl: 'projectDetails/details.html'
+                templateUrl: 'projectDetails/details.html',
+				params: {
+                	projectId : null
+				}
 			})
 
 			.state('first', {

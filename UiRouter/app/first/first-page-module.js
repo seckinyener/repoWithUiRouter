@@ -19,7 +19,7 @@ define([
 
     $scope.test = "1234";
     $scope.selectedProject = {};
-    $state.go('.student')
+    $state.go('first.student')
 
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });

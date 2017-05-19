@@ -15,6 +15,7 @@ define([
             $scope.isCreatedSuccessfully = false;
             $scope.myOpenProjectList = [];
             $scope.projectForm = {};
+            $scope.createdProjectsByStudents = [];
 
             //!!!! userId geçici olarak 1 seçildi daha sonra cookie'den alınması gerekiyor.
             var LessonService = 'http://ali.techlife.com.tr/api/Term/GetUserLessons?UserId=1'
@@ -35,7 +36,6 @@ define([
                 $http({ method: 'GET', url: ProjectListService }).then(function successCallback(response) {
                     $scope.projects = response.data;
                     $scope.gridOptions.data = response.data;
-                    $scope.gridApi.grid.refresh();
                 }, function errorCallback(response) {
 
                 });
@@ -51,7 +51,7 @@ define([
             }
 
             $scope.showDetails = function () {
-                $state.go("details");
+                $state.go('details', {projectId : selectedProjectId});
             }
 
             $scope.createProjectTemplate = function (projectForm) {
@@ -133,6 +133,54 @@ define([
             $scope.gridOptions.onRegisterApi = function( gridApi ) {
                 $scope.gridApi = gridApi;
             }
+
+
+            $scope.gridOptions2 = {
+                enableRowSelection: true,
+                enableSelectAll: true,
+                selectionRowHeaderWidth: 5,
+                enableRowHashing: false,
+                rowHeight: 35,
+                showGridFooter: false
+            };
+
+
+            $scope.gridOptions2.columnDefs = [
+                {
+                    name: "",
+                    field: "check",
+                    headerCellClass: '<input type="checkbox"',
+                    cellTemplate: '<input type="checkbox" ng-model="grid.appScope.selectedRow[row.uid]" ng-click="grid.appScope.selectStudentProject(row.entity)">',
+                    width: '1%',
+                },
+                { name: 'Project Name', field: 'Name', width: '20%' },
+                { name: 'Description', field: 'Description' },
+                { name: 'Score', field: 'Score' },
+                { name: 'Status', field: 'Status' },
+            ];
+
+            $scope.gridOptions2.multiSelect = true;
+
+            $scope.gridOptions2.onRegisterApi = function( gridApi ) {
+                $scope.gridApi2 = gridApi;
+            }
+
+            $scope.getStudentProjects = function(){
+                var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/GetTeacherProjects?UserId=4'
+
+                $http({ method: 'GET', url: studentProjectsService }).then(function successCallback(response) {
+                    $scope.gridOptions2.data = response.data;
+                }, function errorCallback(response) {
+                    console.log("hata olustu..");
+                });
+            }
+
+            var selectedProjectId;
+            $scope.selectStudentProject = function(entity){
+                selectedProjectId = entity.Id;
+            }
+
+            $scope.getStudentProjects();
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);

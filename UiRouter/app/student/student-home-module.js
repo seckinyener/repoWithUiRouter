@@ -28,6 +28,15 @@ define([
                 console.log(response);
             });
 
+            var userProjectService = 'http://ali.techlife.com.tr/api/Term/GetUserProjects?UserId=1'
+            $http({ method: 'GET', url: userProjectService }).then(function successCallback(response) {
+                $scope.studentProjects = response.data;
+                $scope.gridOptions2.data = $scope.studentProjects;
+            }, function errorCallback(response) {
+                var test = response;
+                console.log(response);
+            });
+
            $scope.createAProject = function(){
                $state.go('first.initProject');
            }
@@ -55,7 +64,7 @@ define([
                 {
                     name: "",
                     field: "check",
-                    headerCellClass: '<input type="checkbox"',
+                    headerCellClass: '<input type="checkbox">',
                     cellTemplate: '<input type="checkbox" ng-model="grid.appScope.selectedRow[row.uid]" ng-click="grid.appScope.clickedCheckbox(row.entity)">',
                     width: '1%',
                 },
@@ -78,40 +87,32 @@ define([
                     var aaa = sec;
                     alert($scope.someProp);
                 };
+
+            $scope.selectStudentProject =
             $scope.gridOptions2 = {};
 
             //you can override the default assignment if you wish
             //$scope.gridOptions.appScopeProvider = someOtherReference;
 
             $scope.gridOptions2.columnDefs = [
-                { name: 'name' },
-                { name: 'gender'},
-                { name: 'ShowScope',
-                    cellTemplate:'<button class="btn primary" ng-click="grid.appScope.showMe(row)">Click Me</button>' }
+                {
+                    name: "",
+                    field: "check",
+                    headerCellClass: '<input type="checkbox"',
+                    cellTemplate: '<input type="checkbox" ng-model="grid.appScope.selectedRow[row.uid]" ng-click="grid.appScope.selectStudentProject(row.entity)">',
+                    width: '1%',
+                },
+                { name: 'Project Name', field: 'Name', width: '20%' },
+                { name: 'Description', field: 'Description' },
+                { name: 'Score', field: 'Score' },
+                { name: 'Status', field: 'Status' },
             ];
 
- $scope.gridOptions2.data = [
- {
- "firstName": "Cox",
- "lastName": "Carney",
- "company": "Enormo",
- "employed": true
- },
- {
- "firstName": "Lorraine",
- "lastName": "Wise",
- "company": "Comveyer",
- "employed": false
- },
- {
- "firstName": "Nancy",
- "lastName": "Waters",
- "company": "Fuelton",
- "employed": false
- }
- ];
+            $scope.gridOptions2.multiSelect = true;
 
-
+            $scope.gridOptions2.onRegisterApi = function( gridApi ) {
+                $scope.gridApi2 = gridApi;
+            }
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);
 });

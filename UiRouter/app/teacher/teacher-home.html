@@ -19,33 +19,8 @@
                 <h2 style="float:left;" class="headerText">Student Projects</h2>
                 <button style="float: right;margin-right: 20px;margin-top: 18px;" class="btn btn-primary" ng-click="showDetails()">Investigate</button>
             </div>
+            <div style="margin: 70px;" ui-grid="gridOptions2" class="grid" ui-grid-selection ui-grid-resize-columns ui-grid-move-columns></div>
 
-            <div style="margin: 20px;">
-                <table>
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Student Name</th>
-                            <th>Project Name</th>
-                            <th>Course</th>
-                            <th>Software Tools</th>
-                            <th>Expire Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="result in resultList">
-                            <td>
-                                <input type="checkbox">
-                            </td>
-                            <td>{{result.studentName}}</td>
-                            <td>{{result.projectName}}</td>
-                            <td>{{result.courseName}}</td>
-                            <td>{{result.softwareTools}}</td>
-                            <td>{{result.expireDate}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </section>
     </div>
     <div class="col-md-12" style="margin-top : 20px;">
