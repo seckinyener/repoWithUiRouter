@@ -88,7 +88,10 @@ define([
                     alert($scope.someProp);
                 };
 
-            $scope.selectStudentProject =
+            $scope.selectStudentProject = function(entity){
+                $scope.selectedProject.myProjectId = entity.Id;
+            }
+
             $scope.gridOptions2 = {};
 
             //you can override the default assignment if you wish
@@ -112,6 +115,10 @@ define([
 
             $scope.gridOptions2.onRegisterApi = function( gridApi ) {
                 $scope.gridApi2 = gridApi;
+            }
+
+            $scope.seeMyProjectDetails = function(){
+                $state.go("first.student-project-details");
             }
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);
