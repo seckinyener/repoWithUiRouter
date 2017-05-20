@@ -11,11 +11,12 @@ define([
     angular.module('myApp.teacherHome', ['ngRoute', 'ui.grid'])
         .controller('teacherHomeCtrl', ['$scope', '$http', '$state', '$timeout', '$stateParams', '$q', '$window', function ($scope, $http, $state, $timeout, $stateParams, $q, $window) {
 
-            $scope.test = true;
             $scope.isCreatedSuccessfully = false;
             $scope.myOpenProjectList = [];
             $scope.projectForm = {};
             $scope.createdProjectsByStudents = [];
+            $scope.searchParameters = {};
+            $scope.studentProjectList = [];
 
             //!!!! userId geçici olarak 1 seçildi daha sonra cookie'den alınması gerekiyor.
             var LessonService = 'http://ali.techlife.com.tr/api/Term/GetUserLessons?UserId=1'
@@ -169,6 +170,7 @@ define([
                 var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/GetTeacherProjects?UserId=4'
 
                 $http({ method: 'GET', url: studentProjectsService }).then(function successCallback(response) {
+                    $scope.studentProjectList = response.data
                     $scope.gridOptions2.data = response.data;
                 }, function errorCallback(response) {
                     console.log("hata olustu..");
@@ -181,6 +183,18 @@ define([
             }
 
             $scope.getStudentProjects();
+
+            $scope.filteredProjectList = [];
+            $scope.searchProjects = function(){
+                $scope.filteredProjectList = _.filter($scope.studentProjectList, function(project){
+                    return project.Name == $scope.searchParameters.projectName;
+                })
+                var test = $scope.filteredProjectList;
+            }
+
+            $scope.redirectToProjectDetails = function(project){
+                $state.go('details', {projectId : project.Id});
+            }
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);
