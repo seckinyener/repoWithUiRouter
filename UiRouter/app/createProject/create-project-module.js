@@ -8,12 +8,13 @@ define([
     'angularRoute'
 ], function(angular) {
     angular.module('myApp.createProject', ['ngRoute', 'ui.grid'])
-        .controller('createProjectCtrl', ['$scope', '$http', '$state','$timeout', '$stateParams', function ($scope, $http, $state, $timeout, $stateParams) {
+        .controller('createProjectCtrl', ['$scope', '$http', '$state','$timeout', '$stateParams', '$location', '$anchorScroll', function ($scope, $http, $state, $timeout, $stateParams, $location, $anchorScroll) {
 
             var test = true;
             $scope.selectedStudents = [];
             $scope.showProjectCreationForm = false;
             $scope.saveProjectForm = {};
+            $scope.createButtonClicked = false;
 
             var lessonId = $scope.selectedProject.lessonId;
             var userByLessonService = 'http://ali.techlife.com.tr/api/Term/GetUserByLesson?LessonId=' + lessonId
@@ -39,7 +40,8 @@ define([
             $scope.createProject = function(){
                 $scope.showProjectCreationForm = true;
 
-
+                $location.hash('projectCreation');
+                $anchorScroll();
             }
 
             $scope.submitProject = function(){
@@ -53,6 +55,7 @@ define([
                         "CreateDate": "2017-05-17T21:06:57.505Z",
                         "FileName": "sec",
                         "Description": $scope.saveProjectForm.description,
+                        "Detail" : $scope.saveProjectForm.detail,
                         "Score": 0,
                         "TeacherNote": "asd",
                         "isAccept": true,
@@ -94,7 +97,7 @@ define([
             }
 
             $scope.backToHomePage = function(){
-                $state.go('student');
+                $state.go('first.student');
             }
 
             $scope.removeRow = function(index){

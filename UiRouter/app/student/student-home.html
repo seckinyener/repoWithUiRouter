@@ -5,7 +5,7 @@
             <h2 class="headerText">Create A Project</h2>
             <div style="margin: 20px;" ui-grid="gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns ui-grid-move-columns></div>
             <div class="col-md-12">
-                <button data-toggle="tooltip" title="Seckin" style="margin-top: 10px; float:right;" ng-click="createAProject()" class="btn btn-primary">See Project Details</button>
+                <button data-toggle="tooltip" title="Seckin" style="margin-top: 10px; float:right;" ng-disabled="!canClickButton" ng-click="createAProject()" class="btn btn-primary">See Project Details</button>
             </div>
         </section>
     </div>
@@ -16,7 +16,7 @@
             <h2 class="headerText">My Projects</h2>
             <div style="margin: 20px;" ui-grid="gridOptions2" class="grid"></div>
             <div class="col-md-12">
-                <button data-toggle="tooltip" title="Seckin" style="margin-top: 10px; float:right;" ng-click="seeMyProjectDetails()" class="btn btn-primary">My Project Details</button>
+                <button data-toggle="tooltip" title="Seckin" style="margin-top: 10px; float:right;"  ng-click="seeMyProjectDetails()" class="btn btn-primary">My Project Details</button>
             </div>
         </section>
     </div>

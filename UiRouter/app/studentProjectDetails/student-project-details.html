@@ -4,7 +4,7 @@
 
             <section class="detailsPageDashboard " style=" margin: 40px">
                 <h2 class="headerText">ProjectDetails</h2>
-                <div class="col-md-6" style="margin-top: 20px; opacity: 0.5;" ng-disabled="true">
+                <div class="col-md-6" style="margin-top: 20px;" ng-disabled="true">
                     <div class="col-sm-12">
                         <div class="col-sm-4">
                             <label style="color: #999;">Project Name</label>
@@ -29,6 +29,19 @@
                             <input class="searchInput" ng-model="projectDetails.Status" type="text">
                         </div>
                     </div>
+
+                    <div class="col-sm-12" ng-repeat="comment in comments">
+                        <div class="col-sm-4">
+                            <label style="color: #999; margin-top:10px;" >Comment</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" style="text-align: center;" ng-model="comment.Name">
+                        </div>
+                        <div class="col-md-4">
+                            {{comment.CreateDate}}
+                        </div>
+                    </div>
+
                     <div class="col-sm-12" ng-repeat="student in studentList">
                         <div class="col-sm-4">
                             <label style="color: #999; margin-top:10px;" >Student</label>

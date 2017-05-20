@@ -17,31 +17,46 @@ define([
     angular.module('myApp.studentHome', ['ngRoute', 'ui.grid'])
         .controller('studentHomeCtrl', ['$scope', '$http', '$state','$timeout', '$stateParams', function ($scope, $http, $state, $timeout, $stateParams) {
 
-           var test = true;
+           $scope.selectedRow = {};
+           $scope.canClickButton = false;
+
            var userProjectService = 'http://ali.techlife.com.tr/api/Term/GetStudentProjectDescs?UserId=1'
             $http({ method: 'GET', url: userProjectService }).then(function successCallback(response) {
                 $scope.lessons = response.data;
                 $scope.gridOptions.data = response.data;
-                console.log($scope.lessons);
             }, function errorCallback(response) {
                 var test = response;
-                console.log(response);
             });
 
-            var userProjectService = 'http://ali.techlife.com.tr/api/Term/GetUserProjects?UserId=1'
-            $http({ method: 'GET', url: userProjectService }).then(function successCallback(response) {
+            var studentProjectService = 'http://ali.techlife.com.tr/api/Term/GetUserProjects?UserId=1'
+            $http({ method: 'GET', url: studentProjectService}).then(function successCallback(response) {
                 $scope.studentProjects = response.data;
                 $scope.gridOptions2.data = $scope.studentProjects;
             }, function errorCallback(response) {
                 var test = response;
-                console.log(response);
             });
 
            $scope.createAProject = function(){
                $state.go('first.initProject');
            }
 
-            $scope.clickedCheckbox = function(data){
+           var checkButtonVisiblity = function(){
+               var list = [];
+               list = _.filter($scope.gridOptions.data, function(row){
+                   return $scope.selectedRow[row.Id] == true;
+               });
+
+               if(list.length != 0)
+                   $scope.canClickButton = true;
+               else
+                   $scope.canClickButton = false;
+           }
+
+           $scope.clickedCheckbox = function(data){
+               if($scope.selectedRow[data.Id] == true)
+                   $scope.selectedRow[data.Id] = false;
+               else
+                   $scope.selectedRow[data.Id] = true;
                $scope.selectedProject.name = data.Name;
                $scope.selectedProject.description= data.Description;
                $scope.selectedProject.endDate = data.EndDate;
@@ -49,7 +64,9 @@ define([
                $scope.selectedProject.lessonId= data.LessonId;
                $scope.selectedProject.name= data.Name;
                $scope.selectedProject.startDate= data.StartDate;
-            }
+               checkButtonVisiblity();
+
+           }
 
             $scope.gridOptions = {
                 enableRowSelection: true,
