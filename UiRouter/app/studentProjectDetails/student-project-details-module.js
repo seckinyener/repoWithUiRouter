@@ -4,10 +4,11 @@
 'use strict';
 define([
     'angular',
-    'angularRoute'
+    'angularRoute',
+    'https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.js'
 ], function(angular) {
-    angular.module('myApp.studentProjectDetails', ['ngRoute', 'ui.bootstrap'])
-        .controller('studentProjectDetailsCtrl', ['$scope', '$http','$state', '$stateParams', function ($scope,$http,$state, $stateParams) {
+    angular.module('myApp.studentProjectDetails', ['ngRoute', 'ui.bootstrap','ngFileUpload'])
+        .controller('studentProjectDetailsCtrl', ['$scope', '$http','$state', '$stateParams','Upload', function ($scope,$http,$state, $stateParams,Upload) {
             $scope.studentList = [];
             $scope.projectDetails = {};
             var userIds = [];

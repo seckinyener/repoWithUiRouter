@@ -30,9 +30,21 @@
                         </div>
                     </div>
 
+
+                    <form name="form">
+                        Single Image with validations
+                        <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB"
+                            ngf-min-height="100" ngf-resize="{width: 100, height: 100}">Select</div>
+                        Multiple files
+                        <div class="button" ngf-select ng-model="files" ngf-multiple="true">Select</div>
+                        Drop files:
+                        <div ngf-drop ng-model="files" class="drop-box">Drop</div>
+                        <button type="submit" ng-click="upload()">submit</button>
+                    </form>
+
                     <div class="col-sm-12" ng-repeat="comment in comments">
                         <div class="col-sm-4">
-                            <label style="color: #999; margin-top:10px;" >Comment</label>
+                            <label style="color: #999; margin-top:10px;">Comment</label>
                         </div>
                         <div class="col-md-4">
                             <input type="text" style="text-align: center;" ng-model="comment.Name">
@@ -44,7 +56,7 @@
 
                     <div class="col-sm-12" ng-repeat="student in studentList">
                         <div class="col-sm-4">
-                            <label style="color: #999; margin-top:10px;" >Student</label>
+                            <label style="color: #999; margin-top:10px;">Student</label>
                         </div>
                         <div class="col-md-4">
                             <input type="text" style="text-align: center;" ng-model="student.Name">

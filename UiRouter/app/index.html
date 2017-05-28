@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
@@ -10,30 +11,40 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="bower_components/angular/angular.js"></script>
 	<script src="bower_components/angular-ui-grid/ui-grid.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.19/angular-cookies.js"></script>
 	<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload-shim.js"></script>
+	<!-- for no html5 browsers support -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.js"></script>
 	<script src="bower_components/underscore/underscore.js"></script>
 	<link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.min.css"></link>
 
 	<title>TermViewer Project</title>
 	<link rel="stylesheet" href="app.css">
 </head>
-<body ng-cloak>
-<nav class="navbar navbar-inverse">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">TermViewer</a>
+
+<body ng-cloak ng-controller="appController">
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">TermViewer</a>
+			</div>
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="#">Home</a></li>
+			</ul>
+			<ul ng-if="!LoggedIn" class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+			</ul>
+			<ul ng-if="LoggedIn" class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ UserName }}</a></li>
+				<li><a ng-click="Logout()" style="cursor:pointer;"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+			</ul>
 		</div>
-		<ul class="nav navbar-nav">
-			<li class="active"><a href="#">Home</a></li>
-		</ul>
-		<ul class="nav navbar-nav navbar-right">
-			<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-			<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-		</ul>
-	</div>
-</nav>
+	</nav>
 	<div ui-view></div>
 	<script data-main="require-config" src="bower_components/requirejs/require.js"></script>
 </body>
+
 </html>
