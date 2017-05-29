@@ -62,6 +62,25 @@ define([
 
             }
 
+            $scope.approveProject = function(){
+                $('#approveModal').modal('show');
+            }
+
+            $scope.approveSubmitButton = function(){
+
+                var approveProjectServiceUrl = 'http://ali.techlife.com.tr/api/Term/ApproveProject?ProjectId='
+                    + $stateParams.projectId + '&Score=' + $scope.projectScore;
+
+                $http({ method: 'POST', url: approveProjectServiceUrl }).then(function successCallback(response) {
+                    if(response.data == true){
+                        console.log(response);
+                        $('#approveModal').modal('hide');
+                    }
+                }, function errorCallback(response) {
+                    console.log("hata olustu..");
+                });
+            }
+
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);
 });

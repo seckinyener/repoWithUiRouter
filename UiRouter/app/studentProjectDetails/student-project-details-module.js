@@ -4,8 +4,7 @@
 'use strict';
 define([
     'angular',
-    'angularRoute',
-    'https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.js'
+    'angularRoute'
 ], function(angular) {
     angular.module('myApp.studentProjectDetails', ['ngRoute', 'ui.bootstrap','ngFileUpload'])
         .controller('studentProjectDetailsCtrl', ['$scope', '$http','$state', '$stateParams','Upload', function ($scope,$http,$state, $stateParams,Upload) {
@@ -75,6 +74,17 @@ define([
                 });
 
             }
+
+            //angular-file-upload example
+
+            $scope.uploadFile = function(file){
+               var fso = new ActiveXObject("Scripting.FileSystemObject");
+               console.log(file);
+               console.log(fso);
+
+            };
+
+           
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);

@@ -9,7 +9,7 @@ define([
     'angularRoute'
 ], function (angular) {
     angular.module('myApp.teacherHome', ['ngRoute', 'ui.grid'])
-        .controller('teacherHomeCtrl', ['$scope', '$http', '$state', '$timeout', '$stateParams', '$q', '$window', function ($scope, $http, $state, $timeout, $stateParams, $q, $window) {
+        .controller('teacherHomeCtrl', ['$scope', '$http', '$state', '$timeout', '$stateParams', '$q', '$window', '$cookies', function ($scope, $http, $state, $timeout, $stateParams, $q, $window, $cookies) {
 
             $scope.isCreatedSuccessfully = false;
             $scope.myOpenProjectList = [];
@@ -19,7 +19,7 @@ define([
             $scope.studentProjectList = [];
 
             //!!!! userId geçici olarak 1 seçildi daha sonra cookie'den alınması gerekiyor.
-            var LessonService = 'http://ali.techlife.com.tr/api/Term/GetUserLessons?UserId=1'
+            var LessonService = 'http://ali.techlife.com.tr/api/Term/GetUserLessons?UserId=' + JSON.parse($cookies.UserInformations).Id;
 
             $http({ method: 'GET', url: LessonService }).then(function successCallback(response) {
                 $scope.lessons = response.data;
@@ -32,11 +32,13 @@ define([
             // projeleri getir
             $scope.GetProjectList = function () {
 
-                var ProjectListService = 'http://ali.techlife.com.tr/api/Term/GetUserProjectDescs?UserId=4';
+                var ProjectListService = 'http://ali.techlife.com.tr/api/Term/GetUserProjectDescs?UserId=' + JSON.parse($cookies.UserInformations).Id;
 
                 $http({ method: 'GET', url: ProjectListService }).then(function successCallback(response) {
                     $scope.projects = response.data;
+                    $scope.gridOptions.columnDefs = [];
                     $scope.gridOptions.data = response.data;
+                    $scope.generateProjectGridColumns();
                 }, function errorCallback(response) {
 
                 });
@@ -52,7 +54,14 @@ define([
             }
 
             $scope.showDetails = function () {
-                $state.go('details', {projectId : selectedProjectId});
+                console.log(selectedProjectId);
+                if (selectedProjectId != null) {
+                    $state.go('details', { projectId: selectedProjectId });
+                }
+                else {
+                    alert("please select a project");
+                }
+
             }
 
             $scope.createProjectTemplate = function (projectForm) {
@@ -74,18 +83,16 @@ define([
                     }
 
                 }).then(function successCallback(response) {
-                    if(response.data == true)
-                    {
+                    if (response.data == true) {
                         $scope.GetProjectList();
                         $('#myModal').modal('hide');
                         $scope.projectForm = {};
 
                     }
-                    else
-                    {
+                    else {
                         alert("proje kaydedilemedi.");
                     }
-                    
+
                 }, function errorCallback(response) {
 
                 });
@@ -107,31 +114,33 @@ define([
                 showGridFooter: false
             };
 
-            $scope.clickedCheckbox = function(row){
+            $scope.clickedCheckbox = function (row) {
                 var test = row;
             }
 
-            $scope.gridOptions.columnDefs = [
-                {
-                    name: "",
-                    field: "check",
-                    headerTemplate: '<input type=\"checkbox\"',
-                    cellTemplate: '<input type="checkbox" ng-model="{{COL_FIELD}}\" ng-click="grid.appScope.clickedCheckbox(row)" ng-true-value=\'Y\' ng-false-value=\'N\' />',
-                    width: '1%',
-                },
+            $scope.generateProjectGridColumns = function () {
+                $scope.gridOptions.columnDefs = [
+                    {
+                        name: "",
+                        field: "check",
+                        headerTemplate: '<input type=\"checkbox\"',
+                        cellTemplate: '<input type="checkbox" ng-model="{{COL_FIELD}}\" ng-click="grid.appScope.clickedCheckbox(row)" ng-true-value=\'Y\' ng-false-value=\'N\' />',
+                        width: '1%',
+                    },
 
-                { name: 'Project Name', field: 'Name', width: '20%' },
-            
+                    { name: 'Project Name', field: 'Name', width: '20%' },
                 { name: 'Description', field: 'Description' },
                 { name: 'Lesson', field: 'LessonName' },
                 { name: 'Start Date', field: 'StartDate' },
-                { name: 'Deadline', field:'EndDate' },
-                { name: 'Score Effect', field:'ScoreEffect' },
-            ];
+                { name: 'Deadline', field: 'EndDate' },
+                { name: 'Score Effect', field: 'ScoreEffect' },
+                ];
+            }
+
 
             //$scope.gridOptions.multiSelect = true;
 
-            $scope.gridOptions.onRegisterApi = function( gridApi ) {
+            $scope.gridOptions.onRegisterApi = function (gridApi) {
                 $scope.gridApi = gridApi;
             }
 
@@ -163,12 +172,12 @@ define([
 
             $scope.gridOptions2.multiSelect = true;
 
-            $scope.gridOptions2.onRegisterApi = function( gridApi ) {
+            $scope.gridOptions2.onRegisterApi = function (gridApi) {
                 $scope.gridApi2 = gridApi;
             }
 
-            $scope.getStudentProjects = function(){
-                var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/GetTeacherProjects?UserId=4'
+            $scope.getStudentProjects = function () {
+                var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/GetTeacherProjects?UserId=' + JSON.parse($cookies.UserInformations).Id;
 
                 $http({ method: 'GET', url: studentProjectsService }).then(function successCallback(response) {
                     $scope.studentProjectList = response.data
@@ -179,11 +188,12 @@ define([
             }
 
             var selectedProjectId;
-            $scope.selectStudentProject = function(entity){
+            $scope.selectStudentProject = function (entity) {
                 selectedProjectId = entity.Id;
             }
 
             $scope.getStudentProjects();
+            $scope.generateProjectGridColumns();
 
             //$scope.filteredProjectList = [];
             //$scope.searchProjects = function(){
@@ -193,7 +203,7 @@ define([
             //    var test = $scope.filteredProjectList;
             //}
 
-            $scope.searchProjects = function(){
+            $scope.searchProjects = function () {
                 var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/SearchProjects?UserId=4'
                 var ProjectName = $scope.searchParameters.projectName;
                 var ProjectId = $scope.searchParameters.projectId;
@@ -203,8 +213,8 @@ define([
                 var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/SearchProjects?ProjectId=' + ProjectId + '&StudentNo=' + StudentNo + '&ProjectName=' + ProjectName
             }
 
-            $scope.redirectToProjectDetails = function(project){
-                $state.go('details', {projectId : project.Id});
+            $scope.redirectToProjectDetails = function (project) {
+                $state.go('details', { projectId: project.Id });
             }
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });

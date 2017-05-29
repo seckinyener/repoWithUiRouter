@@ -30,17 +30,20 @@
                         </div>
                     </div>
 
-
-                    <form name="form">
-                        Single Image with validations
-                        <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB"
-                            ngf-min-height="100" ngf-resize="{width: 100, height: 100}">Select</div>
+                    <!--ng file upload-->
+                    <!--<form name="form" enctype="multipart/form-data">
+                        
                         Multiple files
-                        <div class="button" ngf-select ng-model="files" ngf-multiple="true">Select</div>
+                        <input type="file" class="form-control" ngf-select ng-model="files" multiples/>
                         Drop files:
-                        <div ngf-drop ng-model="files" class="drop-box">Drop</div>
-                        <button type="submit" ng-click="upload()">submit</button>
-                    </form>
+                        <button ngf-drop ng-model="files" class="drop-box">Drop</button>
+                        <button type="submit" ng-click="upload()">Submit</button>
+                    </form>-->
+
+                    <div>
+                        <input class="form-control" type="file" ng-model="file" />
+                        <button ng-click="uploadFile(file)">upload me</button>
+                    </div>
 
                     <div class="col-sm-12" ng-repeat="comment in comments">
                         <div class="col-sm-4">
