@@ -90,7 +90,6 @@ define([
 				else{
 					$scope.LoggedIn = true;
 					$scope.UserName = JSON.parse($cookies.UserInformations).Name
-					console.log(JSON.parse($cookies.UserInformations));
 				}
 			});
 
@@ -100,6 +99,8 @@ define([
 			}
 
 			$scope.test = true;
-		}]);
+		}])
+
+		
 });
 

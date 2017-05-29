@@ -15,12 +15,12 @@ define([
     'angularRoute'
 ], function(angular) {
     angular.module('myApp.studentHome', ['ngRoute', 'ui.grid'])
-        .controller('studentHomeCtrl', ['$scope', '$http', '$state','$timeout', '$stateParams', function ($scope, $http, $state, $timeout, $stateParams) {
+        .controller('studentHomeCtrl', ['$scope', '$http', '$state','$timeout', '$stateParams','$cookies', function ($scope, $http, $state, $timeout, $stateParams,$cookies) {
 
            $scope.selectedRow = {};
            $scope.canClickButton = false;
 
-           var userProjectService = 'http://ali.techlife.com.tr/api/Term/GetStudentProjectDescs?UserId=1'
+           var userProjectService = 'http://ali.techlife.com.tr/api/Term/GetStudentProjectDescs?UserId='+ JSON.parse($cookies.UserInformations).Id;
             $http({ method: 'GET', url: userProjectService }).then(function successCallback(response) {
                 $scope.lessons = response.data;
                 $scope.gridOptions.data = response.data;
@@ -28,7 +28,7 @@ define([
                 var test = response;
             });
 
-            var studentProjectService = 'http://ali.techlife.com.tr/api/Term/GetUserProjects?UserId=1'
+            var studentProjectService = 'http://ali.techlife.com.tr/api/Term/GetUserProjects?UserId=' + JSON.parse($cookies.UserInformations).Id;
             $http({ method: 'GET', url: studentProjectService}).then(function successCallback(response) {
                 $scope.studentProjects = response.data;
                 $scope.gridOptions2.data = $scope.studentProjects;

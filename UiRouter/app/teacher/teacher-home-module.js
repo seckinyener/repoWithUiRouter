@@ -9,7 +9,7 @@ define([
     'angularRoute'
 ], function (angular) {
     angular.module('myApp.teacherHome', ['ngRoute', 'ui.grid'])
-        .controller('teacherHomeCtrl', ['$scope', '$http', '$state', '$timeout', '$stateParams', '$q', '$window', function ($scope, $http, $state, $timeout, $stateParams, $q, $window) {
+        .controller('teacherHomeCtrl', ['$scope', '$http', '$state', '$timeout', '$stateParams', '$q', '$window','$cookies', function ($scope, $http, $state, $timeout, $stateParams, $q, $window,$cookies) {
 
             $scope.isCreatedSuccessfully = false;
             $scope.myOpenProjectList = [];
@@ -19,7 +19,7 @@ define([
             $scope.studentProjectList = [];
 
             //!!!! userId geçici olarak 1 seçildi daha sonra cookie'den alınması gerekiyor.
-            var LessonService = 'http://ali.techlife.com.tr/api/Term/GetUserLessons?UserId=1'
+            var LessonService = 'http://ali.techlife.com.tr/api/Term/GetUserLessons?UserId=' + JSON.parse($cookies.UserInformations).Id;
 
             $http({ method: 'GET', url: LessonService }).then(function successCallback(response) {
                 $scope.lessons = response.data;
@@ -32,7 +32,7 @@ define([
             // projeleri getir
             $scope.GetProjectList = function () {
 
-                var ProjectListService = 'http://ali.techlife.com.tr/api/Term/GetUserProjectDescs?UserId=4';
+                var ProjectListService = 'http://ali.techlife.com.tr/api/Term/GetUserProjectDescs?UserId=' + JSON.parse($cookies.UserInformations).Id;
 
                 $http({ method: 'GET', url: ProjectListService }).then(function successCallback(response) {
                     $scope.projects = response.data;
@@ -52,7 +52,14 @@ define([
             }
 
             $scope.showDetails = function () {
-                $state.go('details', {projectId : selectedProjectId});
+                console.log(selectedProjectId);
+                if(selectedProjectId != null){
+                    $state.go('details', {projectId : selectedProjectId});
+                }
+                else{
+                    alert("please select a project");
+                }
+                
             }
 
             $scope.createProjectTemplate = function (projectForm) {
@@ -167,7 +174,7 @@ define([
             }
 
             $scope.getStudentProjects = function(){
-                var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/GetTeacherProjects?UserId=4'
+                var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/GetTeacherProjects?UserId=' + JSON.parse($cookies.UserInformations).Id;
 
                 $http({ method: 'GET', url: studentProjectsService }).then(function successCallback(response) {
                     $scope.studentProjectList = response.data

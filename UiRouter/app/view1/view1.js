@@ -15,27 +15,36 @@ define([
 
 				$http({ method: 'GET', url: LoginServiceUrl }).then(function successCallback(response) {
 					console.log(response);
-					
-					//kullanıcı bilgileri cookie ye atılır.
-					var UserInformations = {
-						Id: response.data.Id,
-						Name: response.data.Name,
-						RoleId:response.data.RoleId,
-						Email:response.data.Email
+
+					if (response.data == null) {
+						alert("username or password wrong.");
+					}
+					else {
+						//kullanıcı bilgileri cookie ye atılır.
+						var UserInformations = {
+							Id: response.data.Id,
+							Name: response.data.Name,
+							RoleId: response.data.RoleId,
+							Email: response.data.Email
+						}
+
+						// $cookies.put('UserInformations', 'dsads');
+						$cookies.UserInformations = JSON.stringify(UserInformations);
+						console.log($cookies.UserInformations);
+
+						//login başarılı mı?
+						if (response.data.RoleId === 2) {
+
+							$state.go("teacher", { sso: $scope.username, password: $scope.userPassword });
+						}
+						else if (response.data.RoleId === 1) {
+							$state.go("first");
+						}
 					}
 
-					// $cookies.put('UserInformations', 'dsads');
-					$cookies.UserInformations = JSON.stringify(UserInformations);
-					console.log($cookies.UserInformations);
 
-					//login başarılı mı?
-					if (response.data.RoleId === 2) {
 
-						$state.go("teacher", { sso: $scope.username, password: $scope.userPassword });
-					}
-					else if (response.data.RoleId === 1) {
-						$state.go("first");
-					}
+
 
 				}, function errorCallback(response) {
 
