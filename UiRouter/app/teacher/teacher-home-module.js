@@ -71,7 +71,6 @@ define([
                         "ParentId": 0,
                         "UserId": 4,
                         "isDeleted": false
-
                     }
 
                 }).then(function successCallback(response) {
@@ -101,8 +100,8 @@ define([
             };
             $scope.gridOptions = {
                 enableRowSelection: true,
-                enableSelectAll: true,
-                selectionRowHeaderWidth: 5,
+                //enableSelectAll: true,
+                //selectionRowHeaderWidth: 5,
                 enableRowHashing: false,
                 rowHeight: 35,
                 showGridFooter: false
@@ -122,14 +121,15 @@ define([
                 },
 
                 { name: 'Project Name', field: 'Name', width: '20%' },
+            
                 { name: 'Description', field: 'Description' },
-                { name: 'Course Name', field: 'LessonName' },
+                { name: 'Lesson', field: 'LessonName' },
                 { name: 'Start Date', field: 'StartDate' },
                 { name: 'Deadline', field:'EndDate' },
                 { name: 'Score Effect', field:'ScoreEffect' },
             ];
 
-            $scope.gridOptions.multiSelect = true;
+            //$scope.gridOptions.multiSelect = true;
 
             $scope.gridOptions.onRegisterApi = function( gridApi ) {
                 $scope.gridApi = gridApi;
@@ -155,6 +155,7 @@ define([
                     width: '1%',
                 },
                 { name: 'Project Name', field: 'Name', width: '20%' },
+                { name: 'Lesson', field: 'LessonName' },
                 { name: 'Description', field: 'Description' },
                 { name: 'Score', field: 'Score' },
                 { name: 'Status', field: 'Status' },
@@ -184,12 +185,22 @@ define([
 
             $scope.getStudentProjects();
 
-            $scope.filteredProjectList = [];
+            //$scope.filteredProjectList = [];
+            //$scope.searchProjects = function(){
+            //    $scope.filteredProjectList = _.filter($scope.studentProjectList, function(project){
+            //        return project.Name == $scope.searchParameters.projectName;
+            //    })
+            //    var test = $scope.filteredProjectList;
+            //}
+
             $scope.searchProjects = function(){
-                $scope.filteredProjectList = _.filter($scope.studentProjectList, function(project){
-                    return project.Name == $scope.searchParameters.projectName;
-                })
-                var test = $scope.filteredProjectList;
+                var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/SearchProjects?UserId=4'
+                var ProjectName = $scope.searchParameters.projectName;
+                var ProjectId = $scope.searchParameters.projectId;
+                var StudentNo = $scope.searchParameters.studentName;
+                if (!StudentNo) StudentNo = 0;
+                alert(ProjectId + " - " + ProjectName + " - " + StudentNo);
+                var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/SearchProjects?ProjectId=' + ProjectId + '&StudentNo=' + StudentNo + '&ProjectName=' + ProjectName
             }
 
             $scope.redirectToProjectDetails = function(project){

@@ -33,7 +33,7 @@ define([
 
         $scope.createAProject = function(){
             $scope.test = true;
-            alert("jghjg");
+         
             $('#myModal').modal('show');
         }
 

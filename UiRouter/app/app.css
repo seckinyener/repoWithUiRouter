@@ -5,6 +5,7 @@
   border-bottom: 0.1em solid black;
   margin-bottom: 2em;
   padding: 0 0 0.5em;
+  background-color:rgba(48,114,146,.81);
 }
 
 .menu:before {
@@ -30,7 +31,7 @@
 }
 
 body{
-  background-color : #E8E8E8;
+  background-color : white;
 }
 
 [ng-cloak] {
@@ -114,7 +115,7 @@ td, th {
 }
 
 .grid {
-  width: 700px;
+  /*width: 700px;*/
   height: 200px;
 }
 
@@ -125,4 +126,19 @@ td, th {
 
 deleteIcon:hover{
   text-decoration: underline;
+}
+
+.panel-heading {
+
+    background: #5bc0de;
+    color: #fff;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #5bc0de;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }

@@ -12,6 +12,7 @@ define([
 	'student/student-home-module',
 	'createProject/create-project-module',
 	'first/first-page-module',
+    'archive/archive-module',
 	'studentProjectDetails/student-project-details-module',
 	'http://ajax.googleapis.com/ajax/libs/angularjs/1.3.19/angular-cookies.js'
 ], function (angular, angularRoute, view1, view2) {
@@ -27,6 +28,7 @@ define([
 		'myApp.studentHome',
 		'myApp.createProject',
 		'myApp.firstPage',
+        'myApp.archive',
 		'myApp.studentProjectDetails',
 		'ngCookies'
 
@@ -59,6 +61,11 @@ define([
 					url: '/student',
 					templateUrl: 'first/first-page.html'
 				})
+
+                .state('archive', {
+                    url: '/archive',
+                    templateUrl: 'archive/archive.html'
+                })
 
 				.state('first.student', {
 					templateUrl: 'student/student-home.html',
@@ -97,6 +104,10 @@ define([
 			$scope.Logout = function(){
 				delete $cookies['UserInformations'];
 				$state.go("home");
+			}
+
+			$scope.redirect = function () {
+			    $state.go("archive");
 			}
 
 			$scope.test = true;
