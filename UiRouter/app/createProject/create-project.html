@@ -1,32 +1,85 @@
 <div ng-controller="createProjectCtrl">
     <div class="col-md-12" style=" display: block; margin: 0 auto;">
         <div class="col-md-12">
-
             <section class="detailsPageDashboard " style=" margin: 40px">
-                <h2 class="headerText">Create Project</h2>
+                <h2 class="headerText">Project Details</h2>
                 <div class="col-md-6" style="margin-top: 20px;">
                     <div class="col-sm-12">
                         <div class="col-sm-4">
-                            <label style="color: #999;">Project Title</label>
+                            <label style="color: #999;">Project Name</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" type="text">
+                            <input class="searchInput form-control" type="text" ng-model="projectDetails.Name">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="col-sm-4">
-                            <label style="color: #999;">Project Scope</label>
+                            <label style="color: #999;">Lesson Name</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" type="text">
+                            <input class="searchInput form-control" type="text" ng-model="projectDetails.LessonName">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="col-sm-4">
-                            <label style="color: #999;">Software Tools</label>
+                            <label style="color: #999;">Start Date</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" type="text">
+                            <input  class="searchInput form-control" type="text" ng-model="projectDetails.StartDate">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">End Date</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input  class="searchInput form-control" type="text" ng-model="projectDetails.EndDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="margin-top: 20px;">
+                    <div class="col-md-4">
+                        <label style="color: #999;">Project Description</label>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="searchInput form-control" rows="9" cols="60" ng-model="projectDetails.Description">
+                    </textarea>
+                    </div>
+                </div>
+                <div class="col-md-12 buttonGroup" style="float: right;">
+                    <div class="col-md-12" style="float:right;">
+                        <button type="button" class="btn btn-default" style="float:left;" ng-if="!showProjectCreationForm" ng-click="backToHomePage()">Cancel</button>
+                        <div style="display: inline-block; float:right;">
+                            <button type="button" class="btn btn-primary" ng-if="!showProjectCreationForm" ng-click="createProject()">Create A Project</button>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+
+    </div>
+
+    <div class="col-md-12" ng-if="showProjectCreationForm" style=" display: block; margin-top: 20px;">
+        <div class="col-md-12">
+
+            <section class="detailsPageDashboard " style=" margin: 40px">
+                <h2 id="projectCreation" class="headerText">Create Project</h2>
+                <div class="col-md-6" style="margin-top: 20px;">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">Project Name</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput form-control" ng-model="saveProjectForm.name" type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">Project Description</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput form-control" ng-model="saveProjectForm.description" type="text">
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -34,8 +87,9 @@
                             <label style="color: #999;">Upload Attachment</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" type="text">
+                            <input ngf-select="onFileSelect($files)" class="searchInput form-control" type="file" ng-model="saveProjectForm.attachmentName" multiple>
                         </div>
+                        {{saveProjectForm.attachmentName}}
                     </div>
                     <div class="col-sm-12" ng-repeat="student in studentList">
                         <div class="col-sm-4">
@@ -43,16 +97,16 @@
                         </div>
                         <div class="col-md-4">
                             <input type="text" ng-model="selectedStudents[$index]"
-                                   typeahead="st as (st.name + ' - ' + st.sso) for st in students | filter:$viewValue | limitTo:8"
+                                   typeahead="st as (st.Name + ' - ' + st.Id) for st in students | filter:$viewValue | limitTo:8"
                                    typeahead-on-select="setStudent(selectedStudent)" class="form-control">
                         </div>
                         <div class="col-md-2" ng-if= "$index < 2" ng-click="addNewStudent()" data-toggle="tooltip" title="You can add maximum 3 students for the project.">
                             <a><span class="glyphicon glyphicon-plus-sign" ></span> Plus
                             </a>
                         </div>
-                        <div class="col-md-2" ng-if="$index > 0">
-                            <a><span class="glyphicon glyphicon-trash" ng-click="removeRow($index)"></span> Remove
-                            </a>
+                        <div class="col-md-2 deleteIcon" ng-click="removeRow($index)" ng-if="$index > 0">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+
                         </div>
                     </div>
                 </div>
@@ -61,7 +115,7 @@
                         <label style="color: #999;">Project Details</label>
                     </div>
                     <div class="col-md-8">
-                        <textarea class="searchInput" rows="12" cols="60">
+                        <textarea class="searchInput form-control" rows="12" cols="60" ng-model="saveProjectForm.detail">
                     </textarea>
                     </div>
                 </div>
@@ -76,5 +130,6 @@
 
             </section>
         </div>
+
     </div>
 </div>

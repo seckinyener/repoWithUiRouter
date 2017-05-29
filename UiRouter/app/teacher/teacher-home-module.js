@@ -1,3 +1,4 @@
+
 /**
  * Created by sony on 17.04.2017.
  */
@@ -6,97 +7,200 @@
 define([
     'angular',
     'angularRoute'
-], function(angular) {
+], function (angular) {
     angular.module('myApp.teacherHome', ['ngRoute', 'ui.grid'])
-        .controller('teacherHomeCtrl', ['$scope', '$http', '$state','$timeout', '$stateParams','$q', function ($scope, $http, $state, $timeout, $stateParams, $q) {
+        .controller('teacherHomeCtrl', ['$scope', '$http', '$state', '$timeout', '$stateParams', '$q', '$window', function ($scope, $http, $state, $timeout, $stateParams, $q, $window) {
 
-            $scope.test = true;
             $scope.isCreatedSuccessfully = false;
             $scope.myOpenProjectList = [];
             $scope.projectForm = {};
+            $scope.createdProjectsByStudents = [];
+            $scope.searchParameters = {};
+            $scope.studentProjectList = [];
 
-            $scope.resultList = [{
-                "studentName" : "Mike Charlton",
-                "projectName" : "Test",
-                "courseName" : "Se",
-                "softwareTools" : "Java,Angular,SpringBoot",
-                "expireDate" : "23.04.2017"
-            },
-                {
-                    "studentName" : "Ryan Gosling",
-                    "projectName" : "Deneme",
-                    "courseName" : "Seccccc",
-                    "softwareTools" : ".Net,Javascript",
-                    "expireDate" : "23.04.2017"
-                },
-                {
-                    "studentName" : "James Gosling",
-                    "projectName" : "Deneme",
-                    "courseName" : "Se",
-                    "softwareTools" : "Java",
-                    "expireDate" : "23.04.2017"
-                }];
+            //!!!! userId geçici olarak 1 seçildi daha sonra cookie'den alınması gerekiyor.
+            var LessonService = 'http://ali.techlife.com.tr/api/Term/GetUserLessons?UserId=1'
 
-            $scope.createAProject = function(){
+            $http({ method: 'GET', url: LessonService }).then(function successCallback(response) {
+                $scope.lessons = response.data;
+                console.log($scope.lessons);
+                $scope.projectForm.projectLesson = $scope.lessons[0];
+            }, function errorCallback(response) {
+
+            });
+
+            // projeleri getir
+            $scope.GetProjectList = function () {
+
+                var ProjectListService = 'http://ali.techlife.com.tr/api/Term/GetUserProjectDescs?UserId=4';
+
+                $http({ method: 'GET', url: ProjectListService }).then(function successCallback(response) {
+                    $scope.projects = response.data;
+                    $scope.gridOptions.columnDefs = [];
+                    $scope.gridOptions.data = response.data;
+                    $scope.generateProjectGridColumns();
+                }, function errorCallback(response) {
+
+                });
+            }
+
+            $scope.GetProjectList();
+
+            $scope.createAProject = function () {
                 $scope.test = true;
-                $scope.projectForm = {};
+                //$scope.projectForm = {};
                 $('#myModal').modal('show');
+
             }
 
-            $scope.showDetails = function(){
-                $state.go("details");
+            $scope.showDetails = function () {
+                $state.go('details', {projectId : selectedProjectId});
             }
 
-            $scope.createProjectTemplate = function(){
-                $scope.isCreatedSuccessfully = true;
-                $scope.alertMessage = "Project created successfully";
-                var project = {};
-                project.projectName = $scope.projectForm.projectName;
-                project.courseName ="SoftwareEngineering";
-                project.softwareTools = $scope.projectForm.usedTools;
-                project.expireDate = $scope.projectForm.projectExpireDate;
-                $scope.resultList.push(project);
-                $scope.gridOptions.data = $scope.resultList;
+            $scope.createProjectTemplate = function (projectForm) {
+                var SaveProjectService = 'http://ali.techlife.com.tr/api/Term/SaveProjectDesc';
 
-                $timeout( function(){
-                    $scope.isCreatedSuccessfully = false;
-                    $('#myModal').modal('hide');
-                    }, 3000);
+                $http({
+                    method: 'POST', url: SaveProjectService, data: {
+                        "Id": 0,
+                        "Name": $scope.projectForm.projectName,
+                        "LessonId": JSON.parse($scope.projectForm.projectLesson).Id,
+                        "LessonName": JSON.parse($scope.projectForm.projectLesson).Name,
+                        "ScoreEffect": 100,
+                        "StartDate": $scope.projectForm.StartDate,
+                        "EndDate": $scope.projectForm.EndDate,
+                        "Description": $scope.projectForm.projectDescription,
+                        "ParentId": 0,
+                        "UserId": 4,
+                        "isDeleted": false
+
+                    }
+
+                }).then(function successCallback(response) {
+                    if(response.data == true)
+                    {
+                        $scope.GetProjectList();
+                        $('#myModal').modal('hide');
+                        $scope.projectForm = {};
+
+                    }
+                    else
+                    {
+                        alert("proje kaydedilemedi.");
+                    }
+                    
+                }, function errorCallback(response) {
+
+                });
+
+                // $timeout( function(){
+                //     $scope.isCreatedSuccessfully = false;
+                //     $('#myModal').modal('hide');
+                //     }, 3000);
+
+
+
             };
             $scope.gridOptions = {
                 enableRowSelection: true,
                 enableSelectAll: true,
                 selectionRowHeaderWidth: 5,
-                enableRowHashing:false,
+                enableRowHashing: false,
                 rowHeight: 35,
-                showGridFooter:false
+                showGridFooter: false
             };
 
-            $scope.gridOptions.columnDefs = [
-                { name: "",
-                    field : "check",
-                    headerTemplate: '<input type=\"checkbox\"',
-                    cellTemplate : '<input type=\"checkbox\" ng-model=\"{{COL_FIELD}}\" ng-true-value=\'Y\' ng-false-value=\'N\' />',
-                    width: '1%',
-                },
+            $scope.clickedCheckbox = function(row){
+                var test = row;
+            }
 
-                { field : 'projectName', width: '20%' },
-                { field : 'courseName'},
-                { field : 'softwareTools'},
-                { field: 'expireDate'}
-            ];
+            $scope.generateProjectGridColumns = function(){
+                $scope.gridOptions.columnDefs = [
+                    {
+                        name: "",
+                        field: "check",
+                        headerTemplate: '<input type=\"checkbox\"',
+                        cellTemplate: '<input type="checkbox" ng-model="{{COL_FIELD}}\" ng-click="grid.appScope.clickedCheckbox(row)" ng-true-value=\'Y\' ng-false-value=\'N\' />',
+                        width: '1%',
+                    },
+
+                    { name: 'Project Name', field: 'Name', width: '20%' },
+                    { name: 'Description', field: 'Description' },
+                    { name: 'Course Name', field: 'LessonName' },
+                    { name: 'Start Date', field: 'StartDate' },
+                    { name: 'Deadline', field:'EndDate' },
+                    { name: 'Score Effect', field:'ScoreEffect' },
+                ];
+            }
+
 
             $scope.gridOptions.multiSelect = true;
 
-            var getOpenProjects = function(){
-                var deferred = $q.defer();
-                deferred.resolve($scope.resultList);
-                return deferred.promise;
+            $scope.gridOptions.onRegisterApi = function( gridApi ) {
+                $scope.gridApi = gridApi;
             }
 
-            getOpenProjects().then(function(response){
-                $scope.gridOptions.data = response;
-            });
+
+            $scope.gridOptions2 = {
+                enableRowSelection: true,
+                enableSelectAll: true,
+                selectionRowHeaderWidth: 5,
+                enableRowHashing: false,
+                rowHeight: 35,
+                showGridFooter: false
+            };
+
+
+            $scope.gridOptions2.columnDefs = [
+                {
+                    name: "",
+                    field: "check",
+                    headerCellClass: '<input type="checkbox"',
+                    cellTemplate: '<input type="checkbox" ng-model="grid.appScope.selectedRow[row.uid]" ng-click="grid.appScope.selectStudentProject(row.entity)">',
+                    width: '1%',
+                },
+                { name: 'Project Name', field: 'Name', width: '20%' },
+                { name: 'Description', field: 'Description' },
+                { name: 'Score', field: 'Score' },
+                { name: 'Status', field: 'Status' },
+            ];
+
+            $scope.gridOptions2.multiSelect = true;
+
+            $scope.gridOptions2.onRegisterApi = function( gridApi ) {
+                $scope.gridApi2 = gridApi;
+            }
+
+            $scope.getStudentProjects = function(){
+                var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/GetTeacherProjects?UserId=4'
+
+                $http({ method: 'GET', url: studentProjectsService }).then(function successCallback(response) {
+                    $scope.studentProjectList = response.data
+                    $scope.gridOptions2.data = response.data;
+                }, function errorCallback(response) {
+                    console.log("hata olustu..");
+                });
+            }
+
+            var selectedProjectId;
+            $scope.selectStudentProject = function(entity){
+                selectedProjectId = entity.Id;
+            }
+
+            $scope.getStudentProjects();
+            $scope.generateProjectGridColumns();
+
+            $scope.filteredProjectList = [];
+            $scope.searchProjects = function(){
+                $scope.filteredProjectList = _.filter($scope.studentProjectList, function(project){
+                    return project.Name == $scope.searchParameters.projectName;
+                })
+                var test = $scope.filteredProjectList;
+            }
+
+            $scope.redirectToProjectDetails = function(project){
+                $state.go('details', {projectId : project.Id});
+            }
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);

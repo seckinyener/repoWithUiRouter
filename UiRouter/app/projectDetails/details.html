@@ -4,41 +4,38 @@
 
             <section class="detailsPageDashboard " style=" margin: 40px">
                 <h2 class="headerText">ProjectDetails</h2>
-                <div class="col-md-6" style="margin-top: 20px;">
+                <div class="col-md-6" style="margin-top: 20px; opacity: 0.5;">
                     <div class="col-sm-12">
                         <div class="col-sm-4">
-                            <label style="color: #999;">Project Title</label>
+                            <label style="color: #999;">Project Name</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" type="text">
+                            <input class="searchInput" ng-model="projectDetails.Name" type="text">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="col-sm-4">
-                            <label style="color: #999;">Project Scope</label>
+                            <label style="color: #999;">Project Description</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" type="text">
+                            <input class="searchInput" ng-model="projectDetails.Description" type="text">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="col-sm-4">
-                            <label style="color: #999;">Software Tools</label>
+                            <label style="color: #999;">Status</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" type="text">
+                            <input class="searchInput" ng-model="projectDetails.Status" type="text">
                         </div>
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" ng-repeat="student in studentList">
                         <div class="col-sm-4">
-                            <label style="color: #999;" >Student</label>
+                            <label style="color: #999; margin-top:10px;" >Student</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">
+                            <input type="text" style="text-align: center;" ng-model="student.Name">
                         </div>
-                        <div class="col-md-4"><button type="button" class="btn btn-default btn-sm">
-                            <span class="glyphicon glyphicon-plus-sign"></span> Plus
-                        </button></i></div>
                     </div>
                 </div>
                 <div class="col-md-6" style="margin-top: 20px;">
@@ -46,7 +43,7 @@
                         <label style="color: #999;">Project Details</label>
                     </div>
                     <div class="col-md-8">
-                        <textarea class="searchInput" rows="12" cols="60">
+                        <textarea class="searchInput" ng-model="projectDetails.Detail" rows="10" cols="60">
                     </textarea>
                     </div>
                 </div>
@@ -78,14 +75,40 @@
                     <label class="projectLabel">Comment</label>
                 </div>
                 <div class="col-md-6">
-                    <textarea class="searchInput" rows="3" cols="50">
+                    <textarea class="searchInput" ng-model="teacherComment" rows="3" cols="50">
                     </textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" ng-click="createProjectTemplate()">Create</button>
+                <button type="button" class="btn btn-primary" ng-click="submitComment()">Create</button>
             </div>
         </div>
 
+    </div>
+</div>
+
+
+<div id="approveModal" class="modal fade" role="dialog" ng-controller="detailsCtrl">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Approve Project</h4>
+            </div>
+            <div class="modal-body" style="height: 100px;">
+                <p>You are about to approve the project.</p>
+                <div style="margin-top: 10px;">
+                    <div class="col-md-4">
+                        <label class="projectLabel">Project Score</label>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" ng-model="projectScore">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" ng-click="approveSubmitButton()">Submit</button>
+            </div>
+        </div>
     </div>
 </div>

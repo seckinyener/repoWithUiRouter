@@ -4,10 +4,11 @@
 'use strict';
 define([
     'angular',
-    'angularRoute'
+    'angularRoute',
+    'https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/12.2.13/ng-file-upload.js'
 ], function(angular) {
-    angular.module('myApp.projectDetails', ['ngRoute', 'ui.bootstrap'])
-        .controller('detailsCtrl', ['$scope', '$http','$state', '$stateParams', function ($scope,$http,$state, $stateParams) {
+    angular.module('myApp.studentProjectDetails', ['ngRoute', 'ui.bootstrap','ngFileUpload'])
+        .controller('studentProjectDetailsCtrl', ['$scope', '$http','$state', '$stateParams','Upload', function ($scope,$http,$state, $stateParams,Upload) {
             $scope.studentList = [];
             $scope.projectDetails = {};
             var userIds = [];
@@ -17,10 +18,10 @@ define([
             };
 
             $scope.cancelButtonClicked = function(){
-                $state.go("teacher");
+                $state.go("first.student");
             }
 
-            var projectDetailsService = 'http://ali.techlife.com.tr/api/Term/GetProject?ProjectId=' + $stateParams.projectId;
+            var projectDetailsService = 'http://ali.techlife.com.tr/api/Term/GetProject?ProjectId=' + $scope.selectedProject.myProjectId;
 
             var getUserInformation = function(userIdList){
                 _.each(userIdList, function(user){
@@ -33,9 +34,22 @@ define([
                 })
             }
 
+            $scope.comments = [];
+            var getProjectComments = function(projectId){
+                var commentService = 'http://ali.techlife.com.tr/api/Term/GetProjectComment?ProjectId=' + projectId;
+                $http({ method: 'GET', url: projectDetailsService }).then(function successCallback(response) {
+                    $scope.comments.push(response.data);
+                }, function errorCallback(response) {
+                    console.log("hata olustu..");
+                });
+            }
+
             $http({ method: 'GET', url: projectDetailsService }).then(function successCallback(response) {
                 $scope.projectDetails = response.data;
                 userIds = response.data.UserIds;
+                if(response.data.Status === "Waiting"){
+                    getProjectComments(response.data.Id);
+                }
                 getUserInformation(userIds);
             }, function errorCallback(response) {
                 console.log("hata olustu..");
@@ -60,25 +74,6 @@ define([
                     var fail = response;
                 });
 
-            }
-
-            $scope.approveProject = function(){
-                $('#approveModal').modal('show');
-            }
-
-            $scope.approveSubmitButton = function(){
-
-                var approveProjectServiceUrl = 'http://ali.techlife.com.tr/api/Term/ApproveProject?ProjectId='
-                    + $stateParams.projectId + '&Score=' + $scope.projectScore;
-
-                $http({ method: 'POST', url: approveProjectServiceUrl }).then(function successCallback(response) {
-                    if(response.data == true){
-                        console.log(response);
-                        $('#approveModal').modal('hide');
-                    }
-                }, function errorCallback(response) {
-                    console.log("hata olustu..");
-                });
             }
 
             $(function () { $("[data-toggle = 'tooltip']").tooltip(); });

@@ -1,0 +1,83 @@
+<div ng-controller="studentProjectDetailsCtrl">
+    <div class="col-md-12" style=" display: block; margin: 0 auto;">
+        <div class="col-md-12">
+
+            <section class="detailsPageDashboard " style=" margin: 40px">
+                <h2 class="headerText">ProjectDetails</h2>
+                <div class="col-md-6" style="margin-top: 20px;" ng-disabled="true">
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">Project Name</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput" ng-model="projectDetails.Name" type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">Project Description</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput" ng-model="projectDetails.Description" type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999;">Status</label>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="searchInput" ng-model="projectDetails.Status" type="text">
+                        </div>
+                    </div>
+
+
+                    <form name="form">
+                        Single Image with validations
+                        <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB"
+                            ngf-min-height="100" ngf-resize="{width: 100, height: 100}">Select</div>
+                        Multiple files
+                        <div class="button" ngf-select ng-model="files" ngf-multiple="true">Select</div>
+                        Drop files:
+                        <div ngf-drop ng-model="files" class="drop-box">Drop</div>
+                        <button type="submit" ng-click="upload()">submit</button>
+                    </form>
+
+                    <div class="col-sm-12" ng-repeat="comment in comments">
+                        <div class="col-sm-4">
+                            <label style="color: #999; margin-top:10px;">Comment</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" style="text-align: center;" ng-model="comment.Name">
+                        </div>
+                        <div class="col-md-4">
+                            {{comment.CreateDate}}
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12" ng-repeat="student in studentList">
+                        <div class="col-sm-4">
+                            <label style="color: #999; margin-top:10px;">Student</label>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" style="text-align: center;" ng-model="student.Name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" style="margin-top: 20px;">
+                    <div class="col-md-4">
+                        <label style="color: #999;">Project Details</label>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="searchInput" ng-model="projectDetails.Detail" rows="10" cols="60">
+                    </textarea>
+                    </div>
+                </div>
+                <div class="col-md-12 buttonGroup" style="float: right;">
+                    <div class="col-md-12" style="float:right;">
+                        <button type="button" class="btn btn-default" style="float:left;" ng-click="cancelButtonClicked()">Cancel</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
