@@ -36,7 +36,9 @@ define([
 
                 $http({ method: 'GET', url: ProjectListService }).then(function successCallback(response) {
                     $scope.projects = response.data;
+                    $scope.gridOptions.columnDefs = [];
                     $scope.gridOptions.data = response.data;
+                    $scope.generateProjectGridColumns();
                 }, function errorCallback(response) {
 
                 });
@@ -119,22 +121,25 @@ define([
                 var test = row;
             }
 
-            $scope.gridOptions.columnDefs = [
-                {
-                    name: "",
-                    field: "check",
-                    headerTemplate: '<input type=\"checkbox\"',
-                    cellTemplate: '<input type="checkbox" ng-model="{{COL_FIELD}}\" ng-click="grid.appScope.clickedCheckbox(row)" ng-true-value=\'Y\' ng-false-value=\'N\' />',
-                    width: '1%',
-                },
+            $scope.generateProjectGridColumns = function(){
+                $scope.gridOptions.columnDefs = [
+                    {
+                        name: "",
+                        field: "check",
+                        headerTemplate: '<input type=\"checkbox\"',
+                        cellTemplate: '<input type="checkbox" ng-model="{{COL_FIELD}}\" ng-click="grid.appScope.clickedCheckbox(row)" ng-true-value=\'Y\' ng-false-value=\'N\' />',
+                        width: '1%',
+                    },
 
-                { name: 'Project Name', field: 'Name', width: '20%' },
-                { name: 'Description', field: 'Description' },
-                { name: 'Course Name', field: 'LessonName' },
-                { name: 'Start Date', field: 'StartDate' },
-                { name: 'Deadline', field:'EndDate' },
-                { name: 'Score Effect', field:'ScoreEffect' },
-            ];
+                    { name: 'Project Name', field: 'Name', width: '20%' },
+                    { name: 'Description', field: 'Description' },
+                    { name: 'Course Name', field: 'LessonName' },
+                    { name: 'Start Date', field: 'StartDate' },
+                    { name: 'Deadline', field:'EndDate' },
+                    { name: 'Score Effect', field:'ScoreEffect' },
+                ];
+            }
+
 
             $scope.gridOptions.multiSelect = true;
 
@@ -190,6 +195,7 @@ define([
             }
 
             $scope.getStudentProjects();
+            $scope.generateProjectGridColumns();
 
             $scope.filteredProjectList = [];
             $scope.searchProjects = function(){
