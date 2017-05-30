@@ -25,7 +25,7 @@
                             <label style="color: #999;">Start Date</label>
                         </div>
                         <div class="col-md-8">
-                            <input  class="searchInput form-control" type="text" ng-model="projectDetails.StartDate">
+                            <input class="searchInput form-control" type="text" ng-model="projectDetails.StartDate">
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -33,7 +33,7 @@
                             <label style="color: #999;">End Date</label>
                         </div>
                         <div class="col-md-8">
-                            <input  class="searchInput form-control" type="text" ng-model="projectDetails.EndDate">
+                            <input class="searchInput form-control" type="text" ng-model="projectDetails.EndDate">
                         </div>
                     </div>
                 </div>
@@ -87,20 +87,17 @@
                             <label style="color: #999;">Upload Attachment</label>
                         </div>
                         <div class="col-md-8">
-                            <input ngf-select="onFileSelect($files)" class="searchInput form-control" type="file" ng-model="saveProjectForm.attachmentName" multiple>
+                            <input id="upload" name="upload" ngf-select="onFileSelect($files)" class="searchInput form-control" type="file" ng-model="saveProjectForm.attachmentName">
                         </div>
-                        {{saveProjectForm.attachmentName}}
                     </div>
                     <div class="col-sm-12" ng-repeat="student in studentList">
                         <div class="col-sm-4">
-                            <label style="color: #999;" >Student</label>
+                            <label style="color: #999;">Student</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" ng-model="selectedStudents[$index]"
-                                   typeahead="st as (st.Name + ' - ' + st.Id) for st in students | filter:$viewValue | limitTo:8"
-                                   typeahead-on-select="setStudent(selectedStudent)" class="form-control">
+                            <input type="text" ng-model="selectedStudents[$index]" typeahead="st as (st.Name + ' - ' + st.Id) for st in students | filter:$viewValue | limitTo:8" typeahead-on-select="setStudent(selectedStudent)" class="form-control">
                         </div>
-                        <div class="col-md-2" ng-if= "$index < 2" ng-click="addNewStudent()" data-toggle="tooltip" title="You can add maximum 3 students for the project.">
+                        <div class="col-md-2" ng-if="$index < 2" ng-click="addNewStudent()" data-toggle="tooltip" title="You can add maximum 3 students for the project.">
                             <a><span class="glyphicon glyphicon-plus-sign" ></span> Plus
                             </a>
                         </div>

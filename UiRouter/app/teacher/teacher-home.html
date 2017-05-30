@@ -5,7 +5,7 @@
                 <h2 style="float:left;" class="headerText">My Open Projects</h2>
             </div>
 
-           <div style="margin: 20px; margin-top:70px;" ui-grid="gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns ui-grid-move-columns></div>
+            <div style="margin: 20px; margin-top:70px;" ui-grid="gridOptions" class="grid" ui-grid-selection ui-grid-resize-columns ui-grid-move-columns></div>
             <div class="col-md-12">
                 <button style="margin-top: 10px; float:right;" ng-click="createAProject()" class="btn btn-primary">Create a Project</button>
             </div>
@@ -58,7 +58,7 @@
                 <div class="col-md-3 col-xs-12 col-md-offset-1">
                 </div>
                 <div class="col-md-5 col-xs-7">
-                    <button style="float: right; margin: 10px;" class="btn btn-primary" ng-click="searchProjects()" >Search</button>
+                    <button style="float: right; margin: 10px;" class="btn btn-primary" ng-click="searchProjects()">Search</button>
                 </div>
             </div>
 
@@ -79,12 +79,12 @@
                         </tr>
                     </thead>
                     <tbody ng-model="filteredProjectList">
-                    <tr ng-repeat = "project in filteredProjectList" ng-click="redirectToProjectDetails(project)">
-                        <td>{{project.Name}}</td>
-                        <td>{{project.Description}}</td>
-                        <td>{{project.Score}}</td>
-                        <td>{{project.Status}}</td>
-                    </tr>
+                        <tr ng-repeat="project in filteredProjectList" ng-click="redirectToProjectDetails(project)">
+                            <td>{{project.Name}}</td>
+                            <td>{{project.Description}}</td>
+                            <td>{{project.Score}}</td>
+                            <td>{{project.Status}}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -99,42 +99,44 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Create Project Template</h4>
             </div>
-            <div class="modal-body">
+            <form name="form" role="form">
+                <div class="modal-body">
 
-                <div class="form-group">
-                    <label for="">Project Name</label>
-                    <input type="text" ng-model="projectForm.projectName" class="form-control" id="exampleInputEmail1" placeholder="" />
-                </div>
-                <div class="form-group">
-                    <label for="">Project Lesson:</label>
-                    <select class="form-control" ng-init="projectForm.projectLesson = lessons[0]" ng-model="projectForm.projectLesson">
-                        <option value="{{lesson}}" ng-repeat="lesson in lessons">{{lesson.Name}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="">Project Description</label>
-                    <textarea ng-model="projectForm.projectDescription" class="form-control" id="exampleInputEmail1" placeholder="" />
-                    </textarea>
-                </div>
+                    <div class="form-group">
+                        <label for="">Project Name</label>
+                        <input type="text" ng-model="projectForm.projectName" class="form-control" id="exampleInputEmail1" placeholder="" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Project Lesson:</label>
+                        <select class="form-control" ng-model="projectForm.projectLesson" required>
+                            <option value="{{lesson}}" ng-repeat="lesson in lessons">{{lesson.Name}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Project Description</label>
+                        <textarea ng-model="projectForm.projectDescription" class="form-control" id="exampleInputEmail1" placeholder="" required/>
+                        </textarea>
+                    </div>
 
-                <div class="form-group">
-                    <label for="">Project Details</label>
-                    <textarea ng-model="projectForm.projectDetails" class="form-control" id="exampleInputEmail1" placeholder="" />
-                    </textarea>
-                </div>
-                <div class="form-group">
-                    <label for="">Start Date</label>
-                    <input type="date" ng-model="projectForm.StartDate" class="form-control" id="exampleInputEmail1" placeholder="" />
-                </div>
+                    <div class="form-group">
+                        <label for="">Project Details</label>
+                        <textarea ng-model="projectForm.projectDetails" class="form-control" id="exampleInputEmail1" placeholder="" required/>
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Start Date</label>
+                        <input type="date" ng-model="projectForm.StartDate" class="form-control" id="exampleInputEmail1" placeholder="" required/>
+                    </div>
 
-                <div class="form-group">
-                    <label for="">Deadline</label>
-                    <input type="date" ng-model="projectForm.EndDate" class="form-control" id="exampleInputEmail1" placeholder="" />
+                    <div class="form-group">
+                        <label for="">Deadline</label>
+                        <input type="date" ng-model="projectForm.EndDate" class="form-control" id="exampleInputEmail1" placeholder="" required/>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" ng-click="createProjectTemplate(projectForm)">Create</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" ng-disabled="form.$invalid || projectForm.projectLesson == null" class="btn btn-primary" ng-click="createProjectTemplate(projectForm)">Create</button>
+                </div>
+            </form>
         </div>
 
     </div>
