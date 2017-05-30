@@ -11,7 +11,7 @@ define([
     angular.module('myApp.archive', ['ngRoute', 'ui.grid'])
         .controller('archiveCtrl', ['$scope', '$http', '$state', '$timeout', '$stateParams', '$q', '$window', function ($scope, $http, $state, $timeout, $stateParams, $q, $window) {
             $scope.studentProjectList = [];
-
+            var selectedProjectId;
             $scope.gridOptions2 = {
                 enableRowSelection: true,
                 enableSelectAll: true,
@@ -68,7 +68,11 @@ define([
                     console.log("hata olustu..");
                 });
             }
+           
 
+            $scope.selectStudentProject = function (entity) {
+                selectedProjectId = entity.Id;
+            }
 
             $scope.showDetails = function () {
                 $state.go('details', { projectId: selectedProjectId });

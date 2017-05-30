@@ -1,14 +1,11 @@
 ﻿<div ng-controller="lessonCtrl" >
+    <div class="col-md-12">
+        <section style="background-color: #fff; min-height: 350px; border:groove; border-radius:10px; margin-top:20px;">
+            <div class="col-md-12">
+                <h2 style="float:left;" class="headerText">Lessons</h2>
+            </div>
+            <div style="margin: 20px; margin-top:70px;" ui-grid="gridOptions2" class="grid" ui-grid-selection ui-grid-resize-columns ui-grid-move-columns></div>
 
-</div>
-<div class="col-md-12" >
-    <section style="background-color: #fff; height: 350px; border:groove; border-radius:10px; margin-top:20px;">
-        <div class="col-md-12">
-            <h2 style="float:left;" class="headerText">Projects</h2>
-        </div>
-        <div style="margin: 20px; margin-top:70px;" ui-grid="gridOptions2" class="grid" ui-grid-selection ui-grid-resize-columns ui-grid-move-columns></div>
-        <div class="col-md-12">
-            <button style="float: right; margin-top: 10px;" class="btn btn-primary" ng-click="showDetails()">Investigate</button>
-        </div>
-    </section>
+        </section>
+    </div>
 </div>

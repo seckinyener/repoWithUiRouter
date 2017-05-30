@@ -9,8 +9,8 @@ define([
     'angularRoute'
 ], function (angular) {
     angular.module('myApp.lesson', ['ngRoute', 'ui.grid'])
-        .controller('lessonCtrl', ['$scope', '$http', '$state', '$timeout', '$stateParams', '$q', '$window', function ($scope, $http, $state, $timeout, $stateParams, $q, $window) {
-            $scope.studentProjectList = [];
+        .controller('lessonCtrl', ['$scope', '$http', '$state', '$timeout', '$stateParams', '$q', '$window', '$cookies', function ($scope, $http, $state, $timeout, $stateParams, $q, $window, $cookies) {
+
 
             $scope.gridOptions2 = {
                 enableRowSelection: true,
@@ -20,51 +20,42 @@ define([
                 rowHeight: 35,
                 showGridFooter: false
             };
+
             $scope.gridOptions2.columnDefs = [
-            
-                { name: 'Lesson', field: 'Name', width: '20%' },
-                { name: 'Lesson', field: 'LessonName' },
-                { name: 'Description', field: 'Description' },
-                { name: 'Score', field: 'Score' },
-                { name: 'Status', field: 'Status' },
+                {
+                    name: "",
+                    field: "check",
+                    headerCellClass: '<input type="checkbox"',
+                    cellTemplate: '<input type="checkbox" ng-model="grid.appScope.selectedRow[row.uid]" ng-click="grid.appScope.selectStudentProject(row.entity)">',
+                    width: '1%',
+                },
+                { name: 'Lesson', field: 'Name' },
+                { name: 'Code', field: 'Kod' },
+                { name: 'Term', field: 'Term' },
+                { name: 'StudentCount', field: 'StudentCount' },
+                { name: 'Teacher', field: 'Teacher' },
+                { name: 'Asistant', field: 'Asistant' },
+                { name: 'ProjectCount', field: 'ProjectCount' }
             ];
-            $scope.searchProjects = function () {
-                var ProjectName = $scope.searchParameters.projectName;
-                var ProjectId = $scope.searchParameters.projectId;
-                var StudentNo = $scope.searchParameters.studentName;
-                if (!ProjectName) {
-                    ProjectName = "";
-                }
-                if (!StudentNo) {
-                    StudentNo = "";
-                }
-                if (!ProjectId) {
-                    ProjectId = 0;
-                }
 
+            //$scope.gridOptions2.data = [];
+            // projeleri getir
+            
 
-                var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/SearchProjects?ProjectId=' + ProjectId + '&StudentNo=' + StudentNo + '&ProjectName=' + ProjectName;
-                $http({ method: 'GET', url: studentProjectsService }).then(function successCallback(response) {
-                    if (response.data.length > 0) {
-                        console.log(response.data)
-                        $scope.studentProjectList = response.data
-                        $scope.gridOptions2.data = response.data;
-                    }
-                    else {
-                        alert('Sonuç bulunamadı.')
-                    }
+                var LessonListService = 'http://ali.techlife.com.tr/api/Term/GetUserLessons?UserId=' + JSON.parse($cookies.UserInformations).Id;
 
+                $http({ method: 'GET', url: LessonListService }).then(function successCallback(response) {
+                    console.log(response.data)
+                    var a = response.data;
+                    $scope.gridOptions2.data = response.data;
                 }, function errorCallback(response) {
-                    console.log("hata olustu..");
+
                 });
-            }
+            
 
 
-            $scope.showDetails = function () {
-                $state.go('details', { projectId: selectedProjectId });
-            }
 
-            $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
+
         }]);
 });
 

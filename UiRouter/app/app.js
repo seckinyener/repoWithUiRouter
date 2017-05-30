@@ -13,6 +13,7 @@ define([
     'createProject/create-project-module',
     'first/first-page-module',
     'archive/archive-module',
+    'lesson/lesson-module',
     'studentProjectDetails/student-project-details-module',
     'http://ajax.googleapis.com/ajax/libs/angularjs/1.3.19/angular-cookies.js'
 ], function(angular, angularRoute, view1, view2) {
@@ -29,6 +30,7 @@ define([
         'myApp.createProject',
         'myApp.firstPage',
         'myApp.archive',
+        'myApp.lesson',
         'myApp.studentProjectDetails',
         'ngCookies'
 
@@ -75,6 +77,12 @@ define([
             url: '/archive',
             templateUrl: 'archive/archive.html'
         })
+
+           .state('lesson', {
+               url: '/lesson',
+               templateUrl: 'lesson/lesson.html'
+           })
+
 
         .state('first.student-project-details', {
             url: '/project-details',
