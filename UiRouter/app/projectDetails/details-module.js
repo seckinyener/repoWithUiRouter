@@ -75,9 +75,11 @@ define([
                     if(response.data == true){
                         console.log(response);
                         $('#approveModal').modal('hide');
+                        alert("Project has been approved successfully.");
                     }
                 }, function errorCallback(response) {
                     console.log("hata olustu..");
+                    alert("Project could not be saved.");
                 });
             }
 

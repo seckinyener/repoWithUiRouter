@@ -10,7 +10,7 @@
                             <label style="color: #999;">Project Name</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" ng-model="projectDetails.Name" type="text">
+                            <input ng-disabled="true" class="searchInput" ng-model="projectDetails.Name" type="text">
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -18,7 +18,7 @@
                             <label style="color: #999;">Project Description</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" ng-model="projectDetails.Description" type="text">
+                            <input ng-disabled="true" class="searchInput" ng-model="projectDetails.Description" type="text">
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -26,7 +26,7 @@
                             <label style="color: #999;">Status</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" ng-model="projectDetails.Status" type="text">
+                            <input ng-disabled="true" class="searchInput" ng-model="projectDetails.Status" type="text">
                         </div>
                     </div>
 
@@ -40,17 +40,13 @@
                         <button type="submit" ng-click="upload()">Submit</button>
                     </form>-->
 
-                    <div>
-                        <input class="form-control" type="file" ng-model="file" />
-                        <button ng-click="uploadFile(file)">upload me</button>
-                    </div>
 
                     <div class="col-sm-12" ng-repeat="comment in comments">
                         <div class="col-sm-4">
                             <label style="color: #999; margin-top:10px;">Comment</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" style="text-align: center;" ng-model="comment.Name">
+                            <input ng-disabled="true" type="text" style="text-align: center;" ng-model="comment.Name">
                         </div>
                         <div class="col-md-4">
                             {{comment.CreateDate}}
@@ -62,7 +58,7 @@
                             <label style="color: #999; margin-top:10px;">Student</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" style="text-align: center;" ng-model="student.Name">
+                            <input ng-disabled="true" type="text" style="text-align: center;" ng-model="student.Name">
                         </div>
                     </div>
                 </div>
@@ -71,7 +67,7 @@
                         <label style="color: #999;">Project Details</label>
                     </div>
                     <div class="col-md-8">
-                        <textarea class="searchInput" ng-model="projectDetails.Detail" rows="10" cols="60">
+                        <textarea ng-disabled="true" class="searchInput" ng-model="projectDetails.Detail" rows="10" cols="60">
                     </textarea>
                     </div>
                 </div>

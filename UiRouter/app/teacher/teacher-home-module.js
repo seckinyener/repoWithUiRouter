@@ -1,4 +1,3 @@
-
 /**
  * Created by sony on 17.04.2017.
  */
@@ -7,10 +6,9 @@
 define([
     'angular',
     'angularRoute'
-], function (angular) {
+], function(angular) {
     angular.module('myApp.teacherHome', ['ngRoute', 'ui.grid'])
         .controller('teacherHomeCtrl', ['$scope', '$http', '$state', '$timeout', '$stateParams', '$q', '$window', '$cookies', function ($scope, $http, $state, $timeout, $stateParams, $q, $window, $cookies) {
-
             $scope.isCreatedSuccessfully = false;
             $scope.myOpenProjectList = [];
             $scope.projectForm = {};
@@ -24,13 +22,12 @@ define([
             $http({ method: 'GET', url: LessonService }).then(function successCallback(response) {
                 $scope.lessons = response.data;
                 console.log($scope.lessons);
-                $scope.projectForm.projectLesson = $scope.lessons[0];
             }, function errorCallback(response) {
 
             });
 
             // projeleri getir
-            $scope.GetProjectList = function () {
+            $scope.GetProjectList = function() {
 
                 var ProjectListService = 'http://ali.techlife.com.tr/api/Term/GetUserProjectDescs?UserId=' + JSON.parse($cookies.UserInformations).Id;
 
@@ -46,17 +43,18 @@ define([
 
             $scope.GetProjectList();
 
-            $scope.createAProject = function () {
+            $scope.createAProject = function() {
                 $scope.test = true;
                 //$scope.projectForm = {};
                 $('#myModal').modal('show');
 
             }
 
-            $scope.showDetails = function () {
+            $scope.showDetails = function() {
                 console.log(selectedProjectId);
                 if (selectedProjectId != null) {
                     $state.go('details', { projectId: selectedProjectId });
+
                 }
                 else {
                     alert("please select a project");
@@ -64,11 +62,13 @@ define([
 
             }
 
-            $scope.createProjectTemplate = function (projectForm) {
+            $scope.createProjectTemplate = function(projectForm) {
                 var SaveProjectService = 'http://ali.techlife.com.tr/api/Term/SaveProjectDesc';
 
                 $http({
-                    method: 'POST', url: SaveProjectService, data: {
+                    method: 'POST',
+                    url: SaveProjectService,
+                    data: {
                         "Id": 0,
                         "Name": $scope.projectForm.projectName,
                         "LessonId": JSON.parse($scope.projectForm.projectLesson).Id,
@@ -87,10 +87,12 @@ define([
                         $scope.GetProjectList();
                         $('#myModal').modal('hide');
                         $scope.projectForm = {};
+                        alert("Project successfully created.");
 
                     }
                     else {
-                        alert("proje kaydedilemedi.");
+
+                        alert("project could not be saved.");
                     }
 
                 }, function errorCallback(response) {
@@ -114,13 +116,14 @@ define([
                 showGridFooter: false
             };
 
+
             $scope.clickedCheckbox = function (row) {
                 var test = row;
             }
 
-            $scope.generateProjectGridColumns = function () {
-                $scope.gridOptions.columnDefs = [
-                    {
+
+            $scope.generateProjectGridColumns = function() {
+                $scope.gridOptions.columnDefs = [{
                         name: "",
                         field: "check",
                         headerTemplate: '<input type=\"checkbox\"',
@@ -140,7 +143,8 @@ define([
 
             //$scope.gridOptions.multiSelect = true;
 
-            $scope.gridOptions.onRegisterApi = function (gridApi) {
+
+            $scope.gridOptions.onRegisterApi = function(gridApi) {
                 $scope.gridApi = gridApi;
             }
 
@@ -155,8 +159,7 @@ define([
             };
 
 
-            $scope.gridOptions2.columnDefs = [
-                {
+            $scope.gridOptions2.columnDefs = [{
                     name: "",
                     field: "check",
                     headerCellClass: '<input type="checkbox"',
@@ -172,11 +175,12 @@ define([
 
             $scope.gridOptions2.multiSelect = true;
 
-            $scope.gridOptions2.onRegisterApi = function (gridApi) {
+
+            $scope.gridOptions2.onRegisterApi = function(gridApi) {
                 $scope.gridApi2 = gridApi;
             }
 
-            $scope.getStudentProjects = function () {
+            $scope.getStudentProjects = function() {
                 var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/GetTeacherProjects?UserId=' + JSON.parse($cookies.UserInformations).Id;
 
                 $http({ method: 'GET', url: studentProjectsService }).then(function successCallback(response) {
@@ -188,7 +192,8 @@ define([
             }
 
             var selectedProjectId;
-            $scope.selectStudentProject = function (entity) {
+
+            $scope.selectStudentProject = function(entity) {
                 selectedProjectId = entity.Id;
             }
 
@@ -213,11 +218,19 @@ define([
                 var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/SearchProjects?ProjectId=' + ProjectId + '&StudentNo=' + StudentNo + '&ProjectName=' + ProjectName
             }
 
-            $scope.redirectToProjectDetails = function (project) {
+
+            $scope.filteredProjectList = [];
+            $scope.searchProjects = function() {
+                $scope.filteredProjectList = _.filter($scope.studentProjectList, function(project) {
+                    return project.Name == $scope.searchParameters.projectName;
+                })
+                var test = $scope.filteredProjectList;
+            }
+
+            $scope.redirectToProjectDetails = function(project) {
                 $state.go('details', { projectId: project.Id });
             }
 
-            $(function () { $("[data-toggle = 'tooltip']").tooltip(); });
+            $(function() { $("[data-toggle = 'tooltip']").tooltip(); });
         }]);
 });
-

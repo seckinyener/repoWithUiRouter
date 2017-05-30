@@ -31,10 +31,18 @@
                     </div>
                     <div class="col-sm-12" ng-repeat="student in studentList">
                         <div class="col-sm-4">
-                            <label style="color: #999; margin-top:10px;" >Student</label>
+                            <label style="color: #999; margin-top:10px;">Student</label>
                         </div>
                         <div class="col-md-4">
                             <input type="text" style="text-align: center;" ng-model="student.Name">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-sm-4">
+                            <label style="color: #999; margin-top:10px;">Project File</label>
+                        </div>
+                        <div class="col-md-4">
+                            <a target="_blank" href="{{'http://'+projectDetails.FileName}}" download style="color:blue"> Download</a>
                         </div>
                     </div>
                 </div>
