@@ -56,11 +56,11 @@ define([
             })
 
         .state('first', {
-            url: '/student',
             templateUrl: 'first/first-page.html'
         })
 
         .state('first.student', {
+            url: '/student',
             templateUrl: 'student/student-home.html',
         })
 
