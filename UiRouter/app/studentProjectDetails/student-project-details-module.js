@@ -35,9 +35,9 @@ define([
 
             $scope.comments = [];
             var getProjectComments = function(projectId) {
-                var commentService = 'http://ali.techlife.com.tr/api/Term/GetProjectComment?ProjectId=' + projectId;
-                $http({ method: 'GET', url: projectDetailsService }).then(function successCallback(response) {
-                    $scope.comments.push(response.data);
+                var commentService = 'http://ali.techlife.com.tr/api/Term/GetProjectComments?ProjectId=' + projectId;
+                $http({ method: 'GET', url: commentService }).then(function successCallback(response) {
+                    $scope.comments = response.data;
                 }, function errorCallback(response) {
                     console.log("hata olustu..");
                 });
@@ -46,9 +46,9 @@ define([
             $http({ method: 'GET', url: projectDetailsService }).then(function successCallback(response) {
                 $scope.projectDetails = response.data;
                 userIds = response.data.UserIds;
-                if (response.data.Status === "Waiting") {
-                    getProjectComments(response.data.Id);
-                }
+                
+                getProjectComments(response.data.Id);
+                
                 getUserInformation(userIds);
             }, function errorCallback(response) {
                 console.log("hata olustu..");

@@ -22,6 +22,15 @@ define([
 
             var projectDetailsService = 'http://ali.techlife.com.tr/api/Term/GetProject?ProjectId=' + $stateParams.projectId;
 
+            var getProjectComments = function(projectId) {
+                var commentService = 'http://ali.techlife.com.tr/api/Term/GetProjectComments?ProjectId=' + projectId;
+                $http({ method: 'GET', url: commentService }).then(function successCallback(response) {
+                    $scope.comments = response.data;
+                }, function errorCallback(response) {
+                    console.log("hata olustu..");
+                });
+            }
+
             var getUserInformation = function(userIdList){
                 _.each(userIdList, function(user){
                     var projectDetailsService = 'http://ali.techlife.com.tr/api/Term/GetUser?UserId=' + user;
@@ -33,10 +42,14 @@ define([
                 })
             }
 
+            
+            
             $http({ method: 'GET', url: projectDetailsService }).then(function successCallback(response) {
                 $scope.projectDetails = response.data;
                 userIds = response.data.UserIds;
                 getUserInformation(userIds);
+                getProjectComments(response.data.Id);
+                $scope.ProjectId = response.data.Id;
             }, function errorCallback(response) {
                 console.log("hata olustu..");
             });
@@ -55,7 +68,12 @@ define([
 
                 }).then(function successCallback(response) {
                     var test = response.data;
+                    
+                    getProjectComments($scope.ProjectId);
+                    console.log($scope.comments);
                     $('#commentModal').modal('hide');
+                  
+                    
                 }, function errorCallback(response) {
                     var fail = response;
                 });
@@ -76,6 +94,7 @@ define([
                         console.log(response);
                         $('#approveModal').modal('hide');
                         alert("Project has been approved successfully.");
+                        $state.go("teacher");
                     }
                 }, function errorCallback(response) {
                     console.log("hata olustu..");

@@ -87,7 +87,9 @@ define([
                         $scope.GetProjectList();
                         $('#myModal').modal('hide');
                         $scope.projectForm = {};
+                        location.reload();
                         alert("Project successfully created.");
+                        
 
                     }
                     else {

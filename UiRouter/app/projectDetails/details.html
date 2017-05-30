@@ -10,15 +10,15 @@
                             <label style="color: #999;">Project Name</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" ng-model="projectDetails.Name" type="text">
+                            <input class="form-control" ng-disabled="true" class="searchInput" ng-model="projectDetails.Name" type="text">
                         </div>
                     </div>
-                    <div class="col-sm-12">
+                    <div class="col-sm-12" style="margin-top:17px;">
                         <div class="col-sm-4">
                             <label style="color: #999;">Project Description</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" ng-model="projectDetails.Description" type="text">
+                            <input  ng-disabled="true" class="searchInput form-control" ng-model="projectDetails.Description" type="text">
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -26,23 +26,34 @@
                             <label style="color: #999;">Status</label>
                         </div>
                         <div class="col-md-8">
-                            <input class="searchInput" ng-model="projectDetails.Status" type="text">
+                            <input class="form-control searchInput" ng-disabled="true" ng-model="projectDetails.Status" type="text">
                         </div>
                     </div>
                     <div class="col-sm-12" ng-repeat="student in studentList">
                         <div class="col-sm-4">
-                            <label style="color: #999; margin-top:10px;">Student</label>
+                            <label style="color: #999; margin-top:10px;">Student {{$index+1}}</label>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" style="text-align: center;" ng-model="student.Name">
+                            <input class="form-control" ng-disabled="true" type="text" style="text-align: center;" ng-model="student.Name">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="col-sm-4">
                             <label style="color: #999; margin-top:10px;">Project File</label>
                         </div>
+                        <div class="col-md-4" style="margin-top:10px;">
+                            <a target="_blank" href="{{'http://'+projectDetails.FileName}}" download style="color:blue;"> Download</a>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" ng-repeat="comment in comments">
+                        <div class="col-sm-4">
+                            <label style="color: #999; margin-top:10px;">Comment {{$index+1}}</label>
+                        </div>
                         <div class="col-md-4">
-                            <a target="_blank" href="{{'http://'+projectDetails.FileName}}" download style="color:blue"> Download</a>
+                            <input class="form-control" ng-disabled="true" type="text" style="text-align: center;" ng-model="comment.Comment">
+                        </div>
+                        <div class="col-md-4">
+                            {{comment.CreateDate}}
                         </div>
                     </div>
                 </div>
@@ -51,7 +62,7 @@
                         <label style="color: #999;">Project Details</label>
                     </div>
                     <div class="col-md-8">
-                        <textarea class="searchInput" ng-model="projectDetails.Detail" rows="10" cols="60">
+                        <textarea class="form-control searchInput" ng-disabled="true" ng-model="projectDetails.Detail" rows="10" cols="60">
                     </textarea>
                     </div>
                 </div>
@@ -83,7 +94,7 @@
                     <label class="projectLabel">Comment</label>
                 </div>
                 <div class="col-md-6">
-                    <textarea class="searchInput" ng-model="teacherComment" rows="3" cols="50">
+                    <textarea class="searchInput form-control" ng-model="teacherComment" rows="3" cols="50">
                     </textarea>
                 </div>
             </div>
@@ -110,7 +121,7 @@
                         <label class="projectLabel">Project Score</label>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" ng-model="projectScore">
+                        <input class="form-control" type="text" ng-model="projectScore">
                     </div>
                 </div>
             </div>

@@ -15,7 +15,7 @@ define([
     'archive/archive-module',
     'studentProjectDetails/student-project-details-module',
     'http://ajax.googleapis.com/ajax/libs/angularjs/1.3.19/angular-cookies.js'
-], function(angular, angularRoute, view1, view2) {
+], function (angular, angularRoute, view1, view2) {
     // Declare app level module which depends on views, and components
     return angular.module('myApp', [
         'ngRoute',
@@ -33,79 +33,87 @@ define([
         'ngCookies'
 
     ]).
-    config(['$routeProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', function($routeProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
+        config(['$routeProvider', '$stateProvider', '$urlRouterProvider', '$locationProvider', function ($routeProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
 
 
-        $stateProvider
-            .state('home', {
-                url: '/login',
-                templateUrl: 'view1/view1.html'
-            })
-            .state('teacher', {
-                url: '/teacher',
-                templateUrl: 'teacher/teacher-home.html',
-                params: {
-                    sso: null,
-                    password: null
+            $stateProvider
+                .state('home', {
+                    url: '/login',
+                    templateUrl: 'view1/view1.html'
+                })
+                .state('teacher', {
+                    url: '/teacher',
+                    templateUrl: 'teacher/teacher-home.html',
+                    params: {
+                        sso: null,
+                        password: null
+                    }
+                })
+                .state('details', {
+                    url: '/details',
+                    templateUrl: 'projectDetails/details.html',
+                    params: {
+                        projectId: null
+                    }
+                })
+
+                .state('first', {
+                    templateUrl: 'first/first-page.html'
+                })
+
+                .state('first.student', {
+                    url: '/student',
+                    templateUrl: 'student/student-home.html',
+                })
+
+                .state('first.initProject', {
+                    url: '/initProject',
+                    templateUrl: 'createProject/create-project.html'
+                })
+
+                .state('archive', {
+                    url: '/archive',
+                    templateUrl: 'archive/archive.html'
+                })
+
+                .state('first.student-project-details', {
+                    url: '/project-details',
+                    templateUrl: 'studentProjectDetails/student-project-details.html'
+                })
+
+
+            $urlRouterProvider.otherwise('login');
+        }])
+
+        .controller('appController', ['$scope', '$http', '$state', '$cookies', '$rootScope', function ($scope, $http, $state, $cookies, $rootScope) {
+
+            $rootScope.$on('$stateChangeSuccess', function (e, toState, toParams, fromState, fromParams) {
+                $scope.LoggedIn = false;
+                if ($cookies.UserInformations == null) {
+                    // If logged out and transitioning to a logged in page:
+                    e.preventDefault();
+                    $state.go('home');
+                } else {
+                    $scope.LoggedIn = true;
+                    $scope.UserName = JSON.parse($cookies.UserInformations).Name
                 }
-            })
-            .state('details', {
-                url: '/details',
-                templateUrl: 'projectDetails/details.html',
-                params: {
-                    projectId: null
-                }
-            })
+            });
 
-        .state('first', {
-            templateUrl: 'first/first-page.html'
-        })
-
-        .state('first.student', {
-            url: '/student',
-            templateUrl: 'student/student-home.html',
-        })
-
-        .state('first.initProject', {
-            url: '/initProject',
-            templateUrl: 'createProject/create-project.html'
-        })
-
-        .state('archive', {
-            url: '/archive',
-            templateUrl: 'archive/archive.html'
-        })
-
-        .state('first.student-project-details', {
-            url: '/project-details',
-            templateUrl: 'studentProjectDetails/student-project-details.html'
-        })
-
-
-        $urlRouterProvider.otherwise('login');
-    }])
-
-    .controller('appController', ['$scope', '$http', '$state', '$cookies', '$rootScope', function($scope, $http, $state, $cookies, $rootScope) {
-
-        $rootScope.$on('$stateChangeSuccess', function(e, toState, toParams, fromState, fromParams) {
-            $scope.LoggedIn = false;
-            if ($cookies.UserInformations == null) {
-                // If logged out and transitioning to a logged in page:
-                e.preventDefault();
-                $state.go('home');
-            } else {
-                $scope.LoggedIn = true;
-                $scope.UserName = JSON.parse($cookies.UserInformations).Name
+            $scope.Logout = function () {
+                delete $cookies['UserInformations'];
+                $state.go("home");
             }
-        });
 
-        $scope.Logout = function() {
-            delete $cookies['UserInformations'];
-            $state.go("home");
-        }
+            $scope.redirectHome = function () {
+                if (JSON.parse($cookies.UserInformations).RoleId == 1)
+                    $state.go("first")
 
-        $scope.test = true;
-    }])
+                if (JSON.parse($cookies.UserInformations).RoleId == 2)
+                    $state.go("teacher")
+            }
+
+            $scope.test = true;
+        }])
 
 
 });
