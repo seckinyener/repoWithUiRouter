@@ -129,11 +129,11 @@ define([
                     },
 
                     { name: 'Project Name', field: 'Name', width: '20%' },
-                { name: 'Description', field: 'Description' },
-                { name: 'Lesson', field: 'LessonName' },
-                { name: 'Start Date', field: 'StartDate' },
-                { name: 'Deadline', field: 'EndDate' },
-                { name: 'Score Effect', field: 'ScoreEffect' },
+                    { name: 'Description', field: 'Description' },
+                    { name: 'Lesson', field: 'LessonName' },
+                    { name: 'Start Date', field: 'StartDate' },
+                    { name: 'Deadline', field: 'EndDate' },
+                    { name: 'Score Effect', field: 'ScoreEffect' },
                 ];
             }
 
