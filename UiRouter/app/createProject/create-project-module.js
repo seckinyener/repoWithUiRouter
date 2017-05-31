@@ -69,10 +69,10 @@ define([
                 }).then(function successCallback(response) {
                     console.log(response.data);
                     if (response.data == true) {
-                        alert("Project has been saved successfully.");
+                        //scope.alert("Project has been saved successfully.");
                         $scope.backToHomePage();
                     } else {
-                        alert("Project could not been saved!");
+                        scope.alert("Project could not been saved!");
                     }
 
                 }, function errorCallback(response) {

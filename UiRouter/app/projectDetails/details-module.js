@@ -11,7 +11,7 @@ define([
             $scope.studentList = [];
             $scope.projectDetails = {};
             var userIds = [];
-
+            
             $scope.addComment = function(){
                 $('#commentModal').modal('show');
             };
@@ -21,6 +21,15 @@ define([
             }
 
             var projectDetailsService = 'http://ali.techlife.com.tr/api/Term/GetProject?ProjectId=' + $stateParams.projectId;
+
+            var getProjectComments = function(projectId) {
+                var commentService = 'http://ali.techlife.com.tr/api/Term/GetProjectComments?ProjectId=' + projectId;
+                $http({ method: 'GET', url: commentService }).then(function successCallback(response) {
+                    $scope.comments = response.data;
+                }, function errorCallback(response) {
+                    console.log("hata olustu..");
+                });
+            }
 
             var getUserInformation = function(userIdList){
                 _.each(userIdList, function(user){
@@ -33,10 +42,14 @@ define([
                 })
             }
 
+            
+            
             $http({ method: 'GET', url: projectDetailsService }).then(function successCallback(response) {
                 $scope.projectDetails = response.data;
                 userIds = response.data.UserIds;
                 getUserInformation(userIds);
+                getProjectComments(response.data.Id);
+                $scope.ProjectId = response.data.Id;
             }, function errorCallback(response) {
                 console.log("hata olustu..");
             });
@@ -55,7 +68,14 @@ define([
 
                 }).then(function successCallback(response) {
                     var test = response.data;
-                    $('#commentModal').modal('hide');
+                    
+                    $state.go($state.current, {}, { reload: true });
+                    console.log($scope.comments);
+                    $('.modal').remove();
+                    $('.modal-backdrop').remove();
+                    $('body').removeClass("modal-open");
+                  
+                    
                 }, function errorCallback(response) {
                     var fail = response;
                 });
@@ -74,12 +94,16 @@ define([
                 $http({ method: 'POST', url: approveProjectServiceUrl }).then(function successCallback(response) {
                     if(response.data == true){
                         console.log(response);
-                        $('#approveModal').modal('hide');
-                        alert("Project has been approved successfully.");
+                        $('.modal').remove();
+                        $('.modal-backdrop').remove();
+                        $('body').removeClass("modal-open");
+                        //$('#approveModal').modal('hide');
+                       // alert("Project has been approved successfully.");
+                        $state.go("teacher");
                     }
                 }, function errorCallback(response) {
                     console.log("hata olustu..");
-                    alert("Project could not be saved.");
+                    scope.alert("Project could not be saved.");
                 });
             }
 

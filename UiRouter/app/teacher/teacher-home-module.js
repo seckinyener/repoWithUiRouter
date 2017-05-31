@@ -57,7 +57,7 @@ define([
 
                 }
                 else {
-                    alert("please select a project");
+                    $scope.alert("please select a project");
                 }
 
             }
@@ -87,12 +87,14 @@ define([
                         $scope.GetProjectList();
                         $('#myModal').modal('hide');
                         $scope.projectForm = {};
-                        alert("Project successfully created.");
+                        location.reload();
+                        $scope.alert("Project successfully created.");
+                        
 
                     }
                     else {
 
-                        alert("project could not be saved.");
+                        scope.alert("project could not be saved.");
                     }
 
                 }, function errorCallback(response) {
@@ -123,14 +125,7 @@ define([
 
 
             $scope.generateProjectGridColumns = function() {
-                $scope.gridOptions.columnDefs = [{
-                        name: "",
-                        field: "check",
-                        headerTemplate: '<input type=\"checkbox\"',
-                        cellTemplate: '<input type="checkbox" ng-model="{{COL_FIELD}}\" ng-click="grid.appScope.clickedCheckbox(row)" ng-true-value=\'Y\' ng-false-value=\'N\' />',
-                        width: '1%',
-                    },
-
+                $scope.gridOptions.columnDefs = [
                     { name: 'Project Name', field: 'Name', width: '20%' },
                     { name: 'Description', field: 'Description' },
                     { name: 'Lesson', field: 'LessonName' },
@@ -214,7 +209,7 @@ define([
                 var ProjectId = $scope.searchParameters.projectId;
                 var StudentNo = $scope.searchParameters.studentName;
                 if (!StudentNo) StudentNo = 0;
-                alert(ProjectId + " - " + ProjectName + " - " + StudentNo);
+                $scope.alert(ProjectId + " - " + ProjectName + " - " + StudentNo);
                 var studentProjectsService = 'http://ali.techlife.com.tr/api/Term/SearchProjects?ProjectId=' + ProjectId + '&StudentNo=' + StudentNo + '&ProjectName=' + ProjectName
             }
 

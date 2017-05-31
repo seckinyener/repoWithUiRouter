@@ -28,10 +28,10 @@
 	<nav ng-if="LoggedIn" class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">TermViewer</a>
+				<a class="navbar-brand" style="cursor:pointer" ng-click="redirectHome()">TermViewer</a>
 			</div>
 			<ul class="nav navbar-nav">
-				<li ><a href="#">Projects</a></li>
+				<li class="active"><a style="cursor:pointer" ng-click="redirectHome()">Projects</a></li>
 			</ul>
             <ul class="nav navbar-nav">
                 <li><a href="#/lesson">Lessons</a></li>
@@ -50,6 +50,24 @@
 		</div>
 	</nav>
 	<div ui-view></div>
+    
+    <div class="modal fade" id="myModal_alert" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Notification</h4>
+                </div>
+                <div class="modal-body">
+                    <p style="font-size:18px;">{{messageText}}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 	<script data-main="require-config" src="bower_components/requirejs/require.js"></script>
 </body>
 

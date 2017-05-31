@@ -61,7 +61,7 @@ define([
                     }
                     else
                     {
-                        alert('Sonuç bulunamadı.')
+                        $scope.alert('Sonuç bulunamadı.')
                     }
                  
                 }, function errorCallback(response) {

@@ -102,7 +102,7 @@ define([
             $scope.someProp = 'abc',
                 $scope.showMe = function(sec){
                     var aaa = sec;
-                    alert($scope.someProp);
+                    scope.alert($scope.someProp);
                 };
 
             $scope.selectStudentProject = function(entity){

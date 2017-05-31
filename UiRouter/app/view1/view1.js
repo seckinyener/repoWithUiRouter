@@ -29,7 +29,7 @@ define([
                     console.log(response);
 
                     if (response.data == null) {
-                        alert("username or password wrong.");
+                        $scope.alert("username or password wrong.");
                     } else {
                         //kullanıcı bilgileri cookie ye atılır.
                         var UserInformations = {

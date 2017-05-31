@@ -111,7 +111,19 @@ define([
             delete $cookies['UserInformations'];
             $state.go("home");
         }
+        $scope.redirectHome = function () {
+            if (JSON.parse($cookies.UserInformations).RoleId == 1)
+                $state.go("first")
 
+            if (JSON.parse($cookies.UserInformations).RoleId == 2)
+                $state.go("teacher")
+        }
+
+        $scope.alert = function (messageText) {
+            $scope.messageText = messageText;
+            $('#myModal_alert').modal('show');
+            
+        }
         $scope.test = true;
     }])
 
