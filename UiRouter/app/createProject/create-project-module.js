@@ -72,7 +72,7 @@ define([
                         //scope.alert("Project has been saved successfully.");
                         $scope.backToHomePage();
                     } else {
-                        scope.alert("Project could not been saved!");
+                        $scope.alert("Project could not been saved!");
                     }
 
                 }, function errorCallback(response) {

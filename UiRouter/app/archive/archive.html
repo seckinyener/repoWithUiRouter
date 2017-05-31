@@ -1,38 +1,44 @@
-﻿<div ng-controller="archiveCtrl">
+﻿<style>
+    .projectLabeld{
+        text-align:right;
+        margin-top: 5px;
+    }
+</style>
+<div ng-controller="archiveCtrl">
     <div class="col-md-12" style="margin-top : 20px;">
         <section style="background-color: #fff; min-height: 350px; border:groove; border-radius:10px;">
             <h2 class="headerText" style="margin-bottom: 20px;">Search Projects</h2>
             <div class="alert alert-success" role="alert" ng-if="filteredProjectList.length > 0">
                 <strong>Well done!</strong> You successfully read this important alert message.
             </div>
-            <div>
-                <div class="col-md-3 col-xs-12 col-md-offset-1">
-                    <label class="projectLabel">Search By Project Name</label>
+            <div class="form-group col-md-12">
+                <div class="col-md-2 col-xs-12 col-md-offset-1 projectLabeld">
+                    <label class="projectLabel">Project Name:</label>
                 </div>
-                <div class="col-md-5 col-xs-7">
+                <div class="col-md-4 col-xs-7">
                     <input class="searchInput form-control" ng-model="searchParameters.projectName" type="text">
                 </div>
             </div>
-            <div>
-                <div class="col-md-3 col-xs-12 col-md-offset-1">
-                    <label class="projectLabel">Search By Project Id</label>
+            <div class="form-group col-md-12">
+                <div class="col-md-2 col-xs-12 col-md-offset-1 projectLabeld">
+                    <label class="projectLabel">Project Id:</label>
                 </div>
-                <div class="col-md-5 col-xs-7">
+                <div class="col-md-4 col-xs-7">
                     <input class="searchInput form-control" ng-model="searchParameters.projectId" type="text">
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-3 col-xs-12 col-md-offset-1">
-                    <label class="projectLabel">Search By Student Id</label>
+            <div class="form-group col-md-12">
+                <div class="col-md-2 col-xs-12 col-md-offset-1 projectLabeld">
+                    <label class="projectLabel">Student No:</label>
                 </div>
-                <div class="col-md-5 col-xs-7">
+                <div class="col-md-4 col-xs-7">
                     <input class="searchInput form-control" ng-model="searchParameters.studentName" type="text">
                 </div>
             </div>
             <div>
-                <div class="col-md-3 col-xs-12 col-md-offset-1">
+                <div class="col-md-2 col-xs-12 col-md-offset-1">
                 </div>
-                <div class="col-md-5 col-xs-7">
+                <div class="col-md-4 col-xs-7">
                     <button style="float: right; margin: 10px;" class="btn btn-primary" ng-click="searchProjects()">Search</button>
                 </div>
             </div>

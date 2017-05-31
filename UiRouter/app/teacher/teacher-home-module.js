@@ -57,7 +57,7 @@ define([
 
                 }
                 else {
-                    $scope.alert("please select a project");
+                    $scope.alert("Please select a project");
                 }
 
             }
@@ -94,7 +94,7 @@ define([
                     }
                     else {
 
-                        scope.alert("project could not be saved.");
+                        scope.alert("Project could not be saved.");
                     }
 
                 }, function errorCallback(response) {

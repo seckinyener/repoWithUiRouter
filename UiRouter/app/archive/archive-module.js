@@ -61,7 +61,7 @@ define([
                     }
                     else
                     {
-                        $scope.alert('Sonuç bulunamadı.')
+                        $scope.alert('We could not find any projects. Please try another filter!')
                     }
                  
                 }, function errorCallback(response) {

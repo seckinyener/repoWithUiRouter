@@ -17,7 +17,7 @@ define([
             };
 
             $scope.cancelButtonClicked = function(){
-                $state.go("teacher");
+                window.history.back();
             }
 
             var projectDetailsService = 'http://ali.techlife.com.tr/api/Term/GetProject?ProjectId=' + $stateParams.projectId;
@@ -26,6 +26,11 @@ define([
                 var commentService = 'http://ali.techlife.com.tr/api/Term/GetProjectComments?ProjectId=' + projectId;
                 $http({ method: 'GET', url: commentService }).then(function successCallback(response) {
                     $scope.comments = response.data;
+                    for (var i = 0; i < $scope.comments.length;i++ )
+                    {
+                        $scope.comments[i].CreateDate = new Date($scope.comments[i].CreateDate).toLocaleDateString() + "  " + new Date($scope.comments[i].CreateDate).toLocaleTimeString();
+                        //console.log($scope.comments[i].CreateDate.toLocaleDateString());
+                    }
                 }, function errorCallback(response) {
                     console.log("hata olustu..");
                 });
